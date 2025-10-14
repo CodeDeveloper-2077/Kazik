@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Spin Slots - Play Free Online</title>
+    <link rel="stylesheet" href="styles.css">
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🎰</span>
+                    <span class="logo-text">LUCKY SPIN</span>
+                </div>
+                <div class="balance-container">
+                    <div class="balance-label">BALANCE</div>
+                    <div class="balance">$<span id="balance">1,000</span></div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="main-content">
+            <div class="game-area">
+                <div class="game-header">
+                    <h1>LUCKY SLOTS</h1>
+                    <p>Spin to win! Match 3 symbols for amazing payouts.</p>
+                </div>
+                
+                <div class="slot-machine">
+                    <div class="reels-container">
+                        <div class="reel" id="reel1">
+                            <div class="reel-content">🍒</div>
+                        </div>
+                        <div class="reel" id="reel2">
+                            <div class="reel-content">🍋</div>
+                        </div>
+                        <div class="reel" id="reel3">
+                            <div class="reel-content">🍊</div>
+                        </div>
+                    </div>
+                    
+                    <div class="win-message" id="winMessage"></div>
+                    
+                    <div class="controls">
+                        <button class="spin-btn" id="spinBtn">
+                            <span class="btn-text">SPIN</span>
+                            <span class="btn-icon">🎰</span>
+                        </button>
+                    </div>
+                    
+                    <div class="bet-controls">
+                        <button class="bet-btn" id="decreaseBet">-</button>
+                        <div class="bet-display">
+                            <span class="bet-label">BET:</span>
+                            <span class="bet-amount">$<span id="betAmount">10</span></span>
+                        </div>
+                        <button class="bet-btn" id="increaseBet">+</button>
+                    </div>
+                </div>
+                
+                <div class="paytable">
+                    <h3>PAYTABLE</h3>
+                    <div class="paytable-content">
+                        <div class="paytable-item">
+                            <div class="symbols">🍒🍒🍒</div>
+                            <div class="payout">3x Bet</div>
+                        </div>
+                        <div class="paytable-item">
+                            <div class="symbols">🍋🍋🍋</div>
+                            <div class="payout">5x Bet</div>
+                        </div>
+                        <div class="paytable-item">
+                            <div class="symbols">🍊🍊🍊</div>
+                            <div class="payout">7x Bet</div>
+                        </div>
+                        <div class="paytable-item">
+                            <div class="symbols">💎💎💎</div>
+                            <div class="payout">10x Bet</div>
+                        </div>
+                        <div class="paytable-item jackpot">
+                            <div class="symbols">7️⃣7️⃣7️⃣</div>
+                            <div class="payout">20x Bet</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ads-container">
+                <div class="ad-unit">
+                    <div class="ad-label">ADVERTISEMENT</div>
+                    <div id="ad-slot-1" class="ad-slot">
+                        <!-- Google Ad will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="ad-unit">
+                    <div class="ad-label">ADVERTISEMENT</div>
+                    <div id="ad-slot-2" class="ad-slot">
+                        <!-- Google Ad will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="ad-unit">
+                    <div class="ad-label">ADVERTISEMENT</div>
+                    <div id="ad-slot-3" class="ad-slot">
+                        <!-- Google Ad will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>This is a free demo game. No real money is involved. Must be 18+ to play real money games.</p>
+            <p>© 2023 Lucky Spin Slots. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Google Ad Manager initialization
+        window.googletag = window.googletag || {cmd: []};
+        
+        googletag.cmd.push(function() {
+            // Define ad slots
+            var slot1 = googletag.defineSlot('/6355419/Travel/Europe', [300, 250], 'ad-slot-1')
+                .addService(googletag.pubads());
+            var slot2 = googletag.defineSlot('/6355419/Travel/Europe', [300, 250], 'ad-slot-2')
+                .addService(googletag.pubads());
+            var slot3 = googletag.defineSlot('/6355419/Travel/Europe', [300, 250], 'ad-slot-3')
+                .addService(googletag.pubads());
+            
+            // Enable services
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+            
+            // Display ads
+            googletag.display('ad-slot-1');
+            googletag.display('ad-slot-2');
+            googletag.display('ad-slot-3');
+        });
+    </script>
+</body>
+</html>
