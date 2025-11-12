@@ -29,19 +29,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const adConfigs = [
         { 
             containerId: 'ad-container-1', 
-            adSlot: '1234567890',
+            adSlot: '3663384197',
             width: 300,
             height: 250
         },
         { 
             containerId: 'ad-container-2', 
-            adSlot: '0987654321',
+            adSlot: '3663384197',
             width: 300,
             height: 250
         },
         { 
             containerId: 'ad-container-3', 
-            adSlot: '1122334455',
+            adSlot: '9518346104',
             width: 300,
             height: 250
         }
