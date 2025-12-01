@@ -1,647 +1,913 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="google-adsense-account" content="ca-pub-5498731823693191">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lucky Spin Slots - Play Free Online</title>
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="styles.css">
-
-  <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5498731823693191" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Spin Slots - Play Free Casino Games</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Play free online casino slots at Lucky Spin. Win big with amazing bonuses and jackpots! No download required.">
+    <meta name="keywords" content="free slots, online casino, lucky spin, slot games, play free, casino games">
+    <meta name="author" content="Lucky Spin Casino">
+    <meta name="robots" content="index, follow">
+    
+    <!-- External Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎰</text></svg>">
 </head>
 <body>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5498731823693191"
-     crossorigin="anonymous"></script>
-<!-- Ad -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-5498731823693191"
-     data-ad-slot="9280141561"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-  <!-- ===== Header ===== -->
-  <header>
-    <div class="container">
-      <div class="header-content">
-        <div class="logo">
-          <span class="logo-icon">🎰</span>
-          <span class="logo-text">LUCKY SPIN</span>
-        </div>
-        
-        <!-- Navigation Menu -->
-        <nav class="main-nav">
-          <ul class="nav-list">
-            <li class="nav-item"><a href="#home" class="nav-link active" data-page="home"><i class="fas fa-home"></i> Home</a></li>
-            <li class="nav-item"><a href="#games" class="nav-link" data-page="games"><i class="fas fa-gamepad"></i> Games</a></li>
-            <li class="nav-item"><a href="#promotions" class="nav-link" data-page="promotions"><i class="fas fa-gift"></i> Promotions</a></li>
-            <li class="nav-item"><a href="#leaderboard" class="nav-link" data-page="leaderboard"><i class="fas fa-trophy"></i> Leaderboard</a></li>
-            <li class="nav-item"><a href="#support" class="nav-link" data-page="support"><i class="fas fa-headset"></i> Support</a></li>
-          </ul>
-        </nav>
-        
-        <div class="header-controls">
-          <div class="balance-container">
-            <div class="balance-label">BALANCE</div>
-            <div class="balance">$<span id="balance">1,000</span></div>
-          </div>
-          
-          <div class="user-profile">
-            <button class="profile-btn" id="profileBtn">
-              <i class="fas fa-user"></i>
-              <span class="profile-text">Profile</span>
-            </button>
-          </div>
-          
-          <!-- Mobile Menu Toggle -->
-          <button class="mobile-menu-toggle" id="mobileMenuToggle">
-            <i class="fas fa-bars"></i>
-          </button>
-        </div>
-      </div>
-      
-      <!-- Mobile Navigation -->
-      <div class="mobile-nav" id="mobileNav">
-        <ul class="mobile-nav-list">
-          <li class="mobile-nav-item"><a href="#home" class="mobile-nav-link active" data-page="home"><i class="fas fa-home"></i> Home</a></li>
-          <li class="mobile-nav-item"><a href="#games" class="mobile-nav-link" data-page="games"><i class="fas fa-gamepad"></i> Games</a></li>
-          <li class="mobile-nav-item"><a href="#promotions" class="mobile-nav-link" data-page="promotions"><i class="fas fa-gift"></i> Promotions</a></li>
-          <li class="mobile-nav-item"><a href="#leaderboard" class="mobile-nav-link" data-page="leaderboard"><i class="fas fa-trophy"></i> Leaderboard</a></li>
-          <li class="mobile-nav-item"><a href="#support" class="mobile-nav-link" data-page="support"><i class="fas fa-headset"></i> Support</a></li>
-        </ul>
-      </div>
-    </div>
-  </header>
-
-  <!-- ===== Main Content ===== -->
-  <main class="container my-4">
-    <!-- Home Page -->
-    <div id="home-page" class="page active">
-      <div class="row g-4 main-content">
-        <div class="col-lg-8">
-          <div class="game-area">
-            <div class="game-header mb-3">
-              <h1>LUCKY SLOTS</h1>
-              <p>Spin to win! Match 3 symbols for amazing payouts.</p>
+    <!-- Message Forms Container -->
+    <div id="messageFormsContainer"></div>
+    
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <span class="logo-icon">🎰</span>
+                    <span class="logo-text">LUCKY SPIN</span>
+                </div>
+                
+                <!-- Main Navigation -->
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="#home" class="nav-link active" data-page="home"><i class="fas fa-home"></i> Home</a></li>
+                        <li class="nav-item"><a href="#games" class="nav-link" data-page="games"><i class="fas fa-gamepad"></i> Games</a></li>
+                        <li class="nav-item"><a href="#promotions" class="nav-link" data-page="promotions"><i class="fas fa-gift"></i> Promotions</a></li>
+                        <li class="nav-item"><a href="#leaderboard" class="nav-link" data-page="leaderboard"><i class="fas fa-trophy"></i> Leaderboard</a></li>
+                        <li class="nav-item"><a href="#support" class="nav-link" data-page="support"><i class="fas fa-headset"></i> Support</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Header Controls -->
+                <div class="header-controls">
+                    
+                    <!-- Balance Display -->
+                    <div class="balance-container">
+                        <div class="balance-label">BALANCE</div>
+                        <div class="balance">$<span id="balance">1,000</span></div>
+                    </div>
+                    
+                    <!-- Profile Button -->
+                    <div class="user-profile">
+                        <button class="profile-btn" id="profileBtn">
+                            <i class="fas fa-user"></i>
+                            <span class="profile-text">Profile</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Mobile Menu Toggle -->
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
             </div>
+            
+            <!-- Mobile Navigation -->
+            <div class="mobile-nav" id="mobileNav">
+                <ul class="mobile-nav-list">
+                    <li class="mobile-nav-item"><a href="#home" class="mobile-nav-link active" data-page="home"><i class="fas fa-home"></i> Home</a></li>
+                    <li class="mobile-nav-item"><a href="#games" class="mobile-nav-link" data-page="games"><i class="fas fa-gamepad"></i> Games</a></li>
+                    <li class="mobile-nav-item"><a href="#promotions" class="mobile-nav-link" data-page="promotions"><i class="fas fa-gift"></i> Promotions</a></li>
+                    <li class="mobile-nav-item"><a href="#leaderboard" class="mobile-nav-link" data-page="leaderboard"><i class="fas fa-trophy"></i> Leaderboard</a></li>
+                    <li class="mobile-nav-item"><a href="#support" class="mobile-nav-link" data-page="support"><i class="fas fa-headset"></i> Support</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
 
-            <!-- Slot Machine -->
-            <div class="slot-machine">
-              <div class="reels-container">
-                <div class="reel" id="reel1"><div class="reel-content">🍒</div></div>
-                <div class="reel" id="reel2"><div class="reel-content">🍋</div></div>
-                <div class="reel" id="reel3"><div class="reel-content">🍊</div></div>
-              </div>
+    <!-- Main Content -->
+    <main class="container my-4">
+        <!-- Home Page -->
+        <div id="home-page" class="page active">
+            <div class="row">
+                <!-- Main Game Column -->
+                <div class="col-lg-8">
+                    <!-- Game Area -->
+                    <div class="game-area">
+                        <div class="game-header mb-4">
+                            <h1>LUCKY SLOTS</h1>
+                            <p>Spin to win! Match 3 symbols for amazing payouts.</p>
+                        </div>
+                        
+                        <!-- Slot Machine -->
+                        <div class="slot-machine">
+                            <div class="reels-container">
+                                <div class="reel" id="reel1">
+                                    <div class="reel-content">🍒</div>
+                                </div>
+                                <div class="reel" id="reel2">
+                                    <div class="reel-content">🍋</div>
+                                </div>
+                                <div class="reel" id="reel3">
+                                    <div class="reel-content">🍊</div>
+                                </div>
+                            </div>
+                            
+                            <div class="win-message" id="winMessage"></div>
+                            
+                            <div class="controls">
+                                <button class="spin-btn" id="spinBtn">
+                                    <span class="btn-text">SPIN</span>
+                                    <span class="btn-icon">🎰</span>
+                                </button>
+                            </div>
+                            
+                            <div class="bet-controls">
+                                <button class="bet-btn" id="decreaseBet">−</button>
+                                <div class="bet-display">
+                                    <span class="bet-label">BET:</span>
+                                    <span class="bet-amount">$<span id="betAmount">10</span></span>
+                                </div>
+                                <button class="bet-btn" id="increaseBet">+</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Paytable -->
+                        <div class="paytable mt-4">
+                            <h3>PAYTABLE</h3>
+                            <div class="paytable-content mt-2">
+                                <div class="paytable-item">
+                                    <div class="symbols">🍒🍒🍒</div>
+                                    <div class="payout">3x Bet</div>
+                                </div>
+                                <div class="paytable-item">
+                                    <div class="symbols">🍋🍋🍋</div>
+                                    <div class="payout">5x Bet</div>
+                                </div>
+                                <div class="paytable-item">
+                                    <div class="symbols">🍊🍊🍊</div>
+                                    <div class="payout">7x Bet</div>
+                                </div>
+                                <div class="paytable-item">
+                                    <div class="symbols">💎💎💎</div>
+                                    <div class="payout">10x Bet</div>
+                                </div>
+                                <div class="paytable-item jackpot">
+                                    <div class="symbols">7️⃣7️⃣7️⃣</div>
+                                    <div class="payout">20x Bet</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Inline Ad: Between game and promotions -->
+                    <div class="inline-ad mt-4">
+                        <div class="ad-content">
+                            <div class="ad-icon">🎮</div>
+                            <div class="ad-text">
+                                <h4>Upgrade Your Gaming Setup</h4>
+                                <p>Check out <strong>ProGamer Gear</strong> - premium gaming accessories</p>
+                            </div>
+                            <button class="ad-btn" onclick="openAdLink('gaming_gear')">Shop Now</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Promotions Banner -->
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-3">
+                            <div class="banner-ad premium-banner">
+                                <div class="banner-content">
+                                    <div class="banner-icon">🎁</div>
+                                    <div class="banner-text">
+                                        <h4>Welcome Bonus</h4>
+                                        <p>Get 150% Bonus + 50 Free Spins</p>
+                                    </div>
+                                    <button class="banner-btn" onclick="claimBonusForm('welcome')">Claim Now</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="banner-ad jackpot-banner">
+                                <div class="banner-content">
+                                    <div class="banner-icon">💰</div>
+                                    <div class="banner-text">
+                                        <h4>Progressive Jackpot</h4>
+                                        <p>Over $2,500,000 to Win!</p>
+                                    </div>
+                                    <button class="banner-btn" onclick="showJackpotInfoForm()">Play Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sidebar Column -->
+                <div class="col-lg-4">
+                    <!-- Sidebar Ad: Gaming Chair -->
+                    <div class="sidebar-ad">
+                        <div class="ad-header">
+                            <span class="ad-label">Advertisement</span>
+                        </div>
+                        <div class="ad-body">
+                            <div class="ad-icon">🪑</div>
+                            <div class="ad-text">
+                                <h5>ComfortMax Pro Gaming Chair</h5>
+                                <p>Ergonomic design for long gaming sessions</p>
+                                <div class="ad-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span>4.5/5</span>
+                                </div>
+                            </div>
+                            <button class="ad-btn" onclick="openAdLink('gaming_chair')">View Deal</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Stats -->
+                    <div class="quick-stats mt-4">
+                        <h5><i class="fas fa-chart-line me-2"></i>Live Stats</h5>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-value" id="onlinePlayers">1,254</span>
+                                <span class="stat-label">Online Now</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="todayWins">$45,230</span>
+                                <span class="stat-label">Won Today</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="jackpotAmount">$2.5M</span>
+                                <span class="stat-label">Jackpot</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Email Subscription -->
+                    <div class="email-subscription mt-4">
+                        <h4><i class="fas fa-envelope me-2"></i>Newsletter</h4>
+                        <p>Get exclusive offers and updates</p>
+                        <form id="emailSubscribeForm">
+                            <div class="input-group mb-2">
+                                <input type="email" class="form-control" placeholder="Your email" required>
+                                <button class="btn btn-primary" type="submit">Subscribe</button>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="marketingConsent" checked>
+                                <label class="form-check-label" for="marketingConsent">
+                                    I agree to receive emails
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Sidebar Ad: Energy Drink -->
+                    <div class="sidebar-ad energy-drink-ad mt-4">
+                        <div class="ad-header">
+                            <span class="ad-label">Sponsored</span>
+                        </div>
+                        <div class="ad-body">
+                            <div class="ad-icon">⚡</div>
+                            <div class="ad-text">
+                                <h5>PowerFuel Energy</h5>
+                                <p>Stay focused during gaming marathons</p>
+                                <div class="ad-tag">30% OFF</div>
+                            </div>
+                            <button class="ad-btn" onclick="openAdLink('energy_drink')">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Featured Games with Ad -->
+            <div class="section-header mt-5">
+                <h3>Featured Games</h3>
+                <p>Most popular games this week</p>
+            </div>
+            
+            <div class="games-carousel mt-3">
+                <div class="game-mini-card">
+                    <div class="mini-game-icon">🎰</div>
+                    <div class="mini-game-info">
+                        <h6>Classic Slots</h6>
+                        <p>3-reel classic experience</p>
+                    </div>
+                    <button class="mini-play-btn" onclick="playGameForm('Classic Slots')">Play</button>
+                </div>
+                
+                <!-- Ad Card disguised as game -->
+                <div class="game-mini-card ad-card">
+                    <div class="mini-game-icon">🎧</div>
+                    <div class="mini-game-info">
+                        <h6>SoundBlast Pro</h6>
+                        <p>Premium gaming headphones</p>
+                        <span class="ad-tag-mini">AD</span>
+                    </div>
+                    <button class="mini-play-btn" onclick="openAdLink('headphones')">View</button>
+                </div>
+                
+                <div class="game-mini-card">
+                    <div class="mini-game-icon">🍀</div>
+                    <div class="mini-game-info">
+                        <h6>Lucky Clover</h6>
+                        <p>Bonus rounds</p>
+                    </div>
+                    <button class="mini-play-btn" onclick="playGameForm('Lucky Clover')">Play</button>
+                </div>
+            </div>
+        </div>
 
-              <div class="win-message" id="winMessage"></div>
+        <!-- Games Page -->
+        <div id="games-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-gamepad me-3"></i>Our Games</h1>
+                <p>Choose from our exciting collection of slot games</p>
+            </div>
+            
+            <!-- Full Width Ad -->
+            <div class="full-width-ad mt-4 mb-4">
+                <div class="ad-content-large">
+                    <div class="ad-icon-large">💻</div>
+                    <div class="ad-text-large">
+                        <h4>Stream Like a Pro with StreamMaster Pro</h4>
+                        <p>Professional streaming software for gamers. Record, stream, and edit with ease.</p>
+                        <div class="ad-features">
+                            <span><i class="fas fa-check"></i> 4K Recording</span>
+                            <span><i class="fas fa-check"></i> Live Streaming</span>
+                            <span><i class="fas fa-check"></i> Easy Editing</span>
+                        </div>
+                    </div>
+                    <button class="ad-btn-large" onclick="openAdLink('streaming_software')">Try Free Trial</button>
+                </div>
+            </div>
+            
+            <div class="games-grid">
+                <div class="game-card">
+                    <div class="game-image">
+                        <div class="game-icon">🎰</div>
+                    </div>
+                    <div class="game-info">
+                        <h3>Classic Slots</h3>
+                        <p>Traditional 3-reel slots with classic symbols</p>
+                        <div class="game-features">
+                            <span class="feature-tag">RTP: 96.5%</span>
+                            <span class="feature-tag">Volatility: Medium</span>
+                        </div>
+                        <button class="play-btn" onclick="playGameForm('Classic Slots')">Play Now</button>
+                    </div>
+                </div>
+                
+                <div class="game-card featured">
+                    <div class="game-image">
+                        <div class="game-icon">🔥</div>
+                        <div class="featured-badge">HOT</div>
+                    </div>
+                    <div class="game-info">
+                        <h3>Diamond Fortune</h3>
+                        <p>5-reel slots with progressive jackpots</p>
+                        <div class="game-features">
+                            <span class="feature-tag">RTP: 97.2%</span>
+                            <span class="feature-tag">Jackpot: Progressive</span>
+                        </div>
+                        <button class="play-btn" onclick="playGameForm('Diamond Fortune')">Play Now</button>
+                    </div>
+                </div>
+                
+                <div class="game-card">
+                    <div class="game-image">
+                        <div class="game-icon">🍀</div>
+                    </div>
+                    <div class="game-info">
+                        <h3>Lucky Clover</h3>
+                        <p>Irish themed slots with bonus rounds</p>
+                        <div class="game-features">
+                            <span class="feature-tag">RTP: 95.8%</span>
+                            <span class="feature-tag">Bonus Rounds</span>
+                        </div>
+                        <button class="play-btn" onclick="playGameForm('Lucky Clover')">Play Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-              <div class="controls">
-                <button class="spin-btn btn btn-lg" id="spinBtn">
-                  <span class="btn-text">SPIN</span>
-                  <span class="btn-icon">🎰</span>
+        <!-- Promotions Page -->
+        <div id="promotions-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-gift me-3"></i>Promotions & Bonuses</h1>
+                <p>Amazing offers to boost your gaming experience</p>
+            </div>
+            
+            <!-- Credit Card Ad -->
+            <div class="credit-card-ad mt-4">
+                <div class="card-ad-content">
+                    <div class="card-ad-icon">💳</div>
+                    <div class="card-ad-text">
+                        <h4>GamerCredit Card</h4>
+                        <p>Earn 3x points on gaming purchases. No annual fee for the first year.</p>
+                        <div class="card-features">
+                            <span><i class="fas fa-check-circle"></i> $200 bonus</span>
+                            <span><i class="fas fa-check-circle"></i> 0% APR first year</span>
+                            <span><i class="fas fa-check-circle"></i> No foreign fees</span>
+                        </div>
+                    </div>
+                    <button class="card-ad-btn" onclick="openAdLink('credit_card')">Apply Now</button>
+                </div>
+            </div>
+            
+            <div class="promotions-container">
+                <div class="promotion-card main-promotion">
+                    <div class="promotion-badge">HOT</div>
+                    <div class="promotion-content">
+                        <h3>Welcome Bonus</h3>
+                        <div class="bonus-amount">100% UP TO $1000</div>
+                        <p>Get double your first deposit plus 100 free spins!</p>
+                        <ul class="bonus-features">
+                            <li><i class="fas fa-check"></i> Minimum deposit: $20</li>
+                            <li><i class="fas fa-check"></i> 100 Free Spins on Diamond Fortune</li>
+                            <li><i class="fas fa-check"></i> Wagering requirement: 30x</li>
+                        </ul>
+                        <button class="claim-btn" onclick="claimBonusForm('Welcome Bonus')">Claim Bonus</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard Page -->
+        <div id="leaderboard-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-trophy me-3"></i>Leaderboard</h1>
+                <p>Compete with other players and win amazing prizes</p>
+            </div>
+            
+            <!-- Gaming Monitor Ad -->
+            <div class="product-ad mt-4">
+                <div class="product-ad-content">
+                    <div class="product-image">
+                        <div class="product-icon">🖥️</div>
+                    </div>
+                    <div class="product-info">
+                        <h4>UltraGamer 240Hz Monitor</h4>
+                        <p>1ms response time, 240Hz refresh rate, NVIDIA G-Sync</p>
+                        <div class="product-price">
+                            <span class="old-price">$599</span>
+                            <span class="current-price">$449</span>
+                            <span class="discount">25% OFF</span>
+                        </div>
+                    </div>
+                    <button class="product-btn" onclick="openAdLink('gaming_monitor')">Buy Now</button>
+                </div>
+            </div>
+            
+            <div class="leaderboard-container">
+                <div class="leaderboard-header">
+                    <div class="time-filters">
+                        <button class="time-filter active" onclick="changeLeaderboardPeriodForm('daily')">Daily</button>
+                        <button class="time-filter" onclick="changeLeaderboardPeriodForm('weekly')">Weekly</button>
+                        <button class="time-filter" onclick="changeLeaderboardPeriodForm('monthly')">Monthly</button>
+                    </div>
+                    <div class="prize-pool">
+                        <div class="prize-label">Today's Prize Pool</div>
+                        <div class="prize-amount">$5,000</div>
+                    </div>
+                </div>
+                
+                <div class="leaderboard-content">
+                    <!-- Leaderboard content -->
+                    <div class="top-winners">
+                        <div class="winner-card second">
+                            <div class="winner-rank">2</div>
+                            <div class="winner-avatar"><i class="fas fa-user"></i></div>
+                            <div class="winner-info">
+                                <div class="winner-name">SarahM</div>
+                                <div class="winner-prize">$750</div>
+                            </div>
+                        </div>
+                        
+                        <div class="winner-card first">
+                            <div class="winner-rank">1</div>
+                            <div class="winner-avatar"><i class="fas fa-crown"></i></div>
+                            <div class="winner-info">
+                                <div class="winner-name">JohnDoe</div>
+                                <div class="winner-prize">$1,500</div>
+                            </div>
+                        </div>
+                        
+                        <div class="winner-card third">
+                            <div class="winner-rank">3</div>
+                            <div class="winner-avatar"><i class="fas fa-user"></i></div>
+                            <div class="winner-info">
+                                <div class="winner-name">Mike_T</div>
+                                <div class="winner-prize">$500</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support Page -->
+        <div id="support-page" class="page">
+            <div class="page-header">
+                <h1><i class="fas fa-headset me-3"></i>Support Center</h1>
+                <p>We're here to help you 24/7</p>
+            </div>
+            
+            <!-- VPN Ad -->
+            <div class="vpn-ad mt-4 mb-4">
+                <div class="vpn-ad-content">
+                    <div class="vpn-icon">🔒</div>
+                    <div class="vpn-text">
+                        <h4>Secure your gaming with GameVPN</h4>
+                        <p>Protect your connection, reduce lag, access global servers.</p>
+                        <div class="vpn-features">
+                            <span><i class="fas fa-shield-alt"></i> Military-grade encryption</span>
+                            <span><i class="fas fa-bolt"></i> 99.9% uptime</span>
+                            <span><i class="fas fa-globe"></i> 100+ countries</span>
+                        </div>
+                    </div>
+                    <button class="vpn-btn" onclick="openAdLink('vpn')">Get Protection</button>
+                </div>
+            </div>
+            
+            <div class="support-container">
+                <div class="support-options">
+                    <div class="support-card">
+                        <div class="support-icon"><i class="fas fa-comments"></i></div>
+                        <h3>Live Chat</h3>
+                        <p>Get instant help from our support team</p>
+                        <button class="support-btn" onclick="startLiveChatForm()">Start Chat</button>
+                    </div>
+                    
+                    <div class="support-card">
+                        <div class="support-icon"><i class="fas fa-envelope"></i></div>
+                        <h3>Email Support</h3>
+                        <p>Send us an email and we'll reply within 24 hours</p>
+                        <button class="support-btn" onclick="sendSupportEmailForm()">Send Email</button>
+                    </div>
+                    
+                    <div class="support-card">
+                        <div class="support-icon"><i class="fas fa-phone"></i></div>
+                        <h3>Phone Support</h3>
+                        <p>Call us anytime for immediate assistance</p>
+                        <button class="support-btn" onclick="callSupportForm()">Call Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Popup Ad Modal -->
+    <div class="modal fade" id="popupAdModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content popup-ad">
+                <div class="popup-header">
+                    <div class="popup-badge">SPONSORED CONTENT</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="popup-body">
+                    <div class="popup-icon">⚡</div>
+                    <h3 id="popupTitle">Boost Your Gaming Performance!</h3>
+                    <p id="popupMessage">Try PerformanceBoost Pro - optimize your system for gaming</p>
+                    <div class="popup-features">
+                        <div class="feature-item">
+                            <i class="fas fa-rocket"></i>
+                            <span>FPS Boost</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>System Optimization</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Security</span>
+                        </div>
+                    </div>
+                    <div class="popup-actions">
+                        <button class="btn btn-primary popup-action-btn" onclick="openAdLink('performance_boost')">
+                            Download Free Trial
+                        </button>
+                        <button class="btn btn-secondary popup-skip-btn" data-bs-dismiss="modal">
+                            Maybe Later
+                        </button>
+                    </div>
+                    <div class="popup-footer">
+                        <small>Advertisement. Not affiliated with Lucky Spin.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interstitial Ad -->
+    <div class="interstitial-ad" id="interstitialAd">
+        <div class="interstitial-content">
+            <div class="interstitial-header">
+                <span class="ad-tag">SPECIAL OFFER</span>
+                <button class="close-interstitial" onclick="closeInterstitial()">
+                    <i class="fas fa-times"></i>
                 </button>
-              </div>
-
-              <div class="bet-controls">
-                <button class="bet-btn" id="decreaseBet">−</button>
-                <div class="bet-display">
-                  <span class="bet-label">BET:</span>
-                  <span class="bet-amount">$<span id="betAmount">10</span></span>
+            </div>
+            <div class="interstitial-body">
+                <div class="interstitial-logo">🎮</div>
+                <h3>Level Up Your Gaming Setup</h3>
+                <p>Check out GameGear Pro - premium equipment for serious gamers</p>
+                <div class="interstitial-features">
+                    <div class="feature">
+                        <i class="fas fa-keyboard"></i>
+                        <span>Mechanical Keyboards</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-mouse"></i>
+                        <span>Gaming Mice</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-headset"></i>
+                        <span>Headsets</span>
+                    </div>
                 </div>
-                <button class="bet-btn" id="increaseBet">+</button>
-              </div>
+                <button class="btn-interstitial" onclick="openAdLink('gaming_gear_full')">
+                    Shop Collection - Up to 40% OFF
+                </button>
+                <div class="interstitial-footer">
+                    <small>Limited time offer. Advertisement.</small>
+                </div>
             </div>
-
-            <!-- Paytable -->
-            <div class="paytable mt-4">
-              <h3>PAYTABLE</h3>
-              <div class="paytable-content mt-2">
-                <div class="paytable-item"><div class="symbols">🍒🍒🍒</div><div class="payout">3x Bet</div></div>
-                <div class="paytable-item"><div class="symbols">🍋🍋🍋</div><div class="payout">5x Bet</div></div>
-                <div class="paytable-item"><div class="symbols">🍊🍊🍊</div><div class="payout">7x Bet</div></div>
-                <div class="paytable-item"><div class="symbols">💎💎💎</div><div class="payout">10x Bet</div></div>
-                <div class="paytable-item jackpot"><div class="symbols">7️⃣7️⃣7️⃣</div><div class="payout">20x Bet</div></div>
-              </div>
-            </div>
-          </div>
         </div>
-
-        <!-- ===== Ads Section ===== -->
-        <div class="col-lg-4">
-          <div class="d-flex flex-column gap-3 ads-container">
-            <!-- Ad Unit 1 -->
-            <div class="ad-unit">
-              <div class="ad-label">ADVERTISEMENT</div>
-              <div id="ad-container-1" class="ad-slot">
-                <div class="ad-placeholder">
-                  <div class="ad-size">300 x 250</div>
-                  <div class="ad-message">Loading advertisement...</div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Ad Unit 2 -->
-            <div class="ad-unit">
-              <div class="ad-label">ADVERTISEMENT</div>
-              <div id="ad-container-2" class="ad-slot">
-                <div class="ad-placeholder">
-                  <div class="ad-size">300 x 250</div>
-                  <div class="ad-message">Your ad could be here</div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Ad Unit 3 -->
-            <div class="ad-unit">
-              <div class="ad-label">ADVERTISEMENT</div>
-              <div id="ad-container-3" class="ad-slot">
-                <div class="ad-placeholder">
-                  <div class="ad-size">300 x 250</div>
-                  <div class="ad-message">Sponsored content</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- Games Page -->
-    <div id="games-page" class="page">
-      <div class="page-header">
-        <h1><i class="fas fa-gamepad me-3"></i>Our Games</h1>
-        <p>Choose from our exciting collection of slot games</p>
-      </div>
-      
-      <div class="games-grid">
-        <div class="game-card">
-          <div class="game-image">
-            <div class="game-icon">🎰</div>
-          </div>
-          <div class="game-info">
-            <h3>Classic Slots</h3>
-            <p>Traditional 3-reel slots with classic symbols</p>
-            <div class="game-features">
-              <span class="feature-tag">RTP: 96.5%</span>
-              <span class="feature-tag">Volatility: Medium</span>
-            </div>
-            <button class="play-btn">Play Now</button>
-          </div>
-        </div>
-        
-        <div class="game-card featured">
-          <div class="game-image">
-            <div class="game-icon">🔥</div>
-            <div class="featured-badge">HOT</div>
-          </div>
-          <div class="game-info">
-            <h3>Diamond Fortune</h3>
-            <p>5-reel slots with progressive jackpots</p>
-            <div class="game-features">
-              <span class="feature-tag">RTP: 97.2%</span>
-              <span class="feature-tag">Jackpot: Progressive</span>
-            </div>
-            <button class="play-btn">Play Now</button>
-          </div>
-        </div>
-        
-        <div class="game-card">
-          <div class="game-image">
-            <div class="game-icon">🍀</div>
-          </div>
-          <div class="game-info">
-            <h3>Lucky Clover</h3>
-            <p>Irish themed slots with bonus rounds</p>
-            <div class="game-features">
-              <span class="feature-tag">RTP: 95.8%</span>
-              <span class="feature-tag">Bonus Rounds</span>
-            </div>
-            <button class="play-btn">Play Now</button>
-          </div>
-        </div>
-        
-        <div class="game-card">
-          <div class="game-image">
-            <div class="game-icon">⚡</div>
-          </div>
-          <div class="game-info">
-            <h3>Thunder Strike</h3>
-            <p>High volatility slots with massive wins</p>
-            <div class="game-features">
-              <span class="feature-tag">RTP: 96.1%</span>
-              <span class="feature-tag">Volatility: High</span>
-            </div>
-            <button class="play-btn">Play Now</button>
-          </div>
-        </div>
-        
-        <div class="game-card">
-          <div class="game-image">
-            <div class="game-icon">🎯</div>
-          </div>
-          <div class="game-info">
-            <h3>Arcade Bonus</h3>
-            <p>Slots with interactive bonus games</p>
-            <div class="game-features">
-              <span class="feature-tag">RTP: 96.8%</span>
-              <span class="feature-tag">Interactive</span>
-            </div>
-            <button class="play-btn">Play Now</button>
-          </div>
-        </div>
-        
-        <div class="game-card">
-          <div class="game-image">
-            <div class="game-icon">🌟</div>
-          </div>
-          <div class="game-info">
-            <h3>Starlight Wins</h3>
-            <p>Space themed slots with free spins</p>
-            <div class="game-features">
-              <span class="feature-tag">RTP: 96.3%</span>
-              <span class="feature-tag">Free Spins</span>
-            </div>
-            <button class="play-btn">Play Now</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Promotions Page -->
-    <div id="promotions-page" class="page">
-      <div class="page-header">
-        <h1><i class="fas fa-gift me-3"></i>Promotions & Bonuses</h1>
-        <p>Amazing offers to boost your gaming experience</p>
-      </div>
-      
-      <div class="promotions-container">
-        <div class="promotion-card main-promotion">
-          <div class="promotion-badge">HOT</div>
-          <div class="promotion-content">
-            <h3>Welcome Bonus</h3>
-            <div class="bonus-amount">100% UP TO $1000</div>
-            <p>Get double your first deposit plus 100 free spins!</p>
-            <ul class="bonus-features">
-              <li><i class="fas fa-check"></i> Minimum deposit: $20</li>
-              <li><i class="fas fa-check"></i> 100 Free Spins on Diamond Fortune</li>
-              <li><i class="fas fa-check"></i> Wagering requirement: 30x</li>
-            </ul>
-            <button class="claim-btn">Claim Bonus</button>
-          </div>
-        </div>
-        
-        <div class="promotions-grid">
-          <div class="promotion-card">
-            <div class="promotion-content">
-              <h3>Free Spins Friday</h3>
-              <div class="bonus-amount">50 FREE SPINS</div>
-              <p>Get 50 free spins every Friday on selected games</p>
-              <div class="promo-timer">
-                <div class="timer-label">Next Friday in:</div>
-                <div class="timer" id="fridayTimer">2d 14h 32m</div>
-              </div>
-              <button class="claim-btn">Learn More</button>
-            </div>
-          </div>
-          
-          <div class="promotion-card">
-            <div class="promotion-content">
-              <h3>Cashback Bonus</h3>
-              <div class="bonus-amount">10% CASHBACK</div>
-              <p>Get 10% cashback on your net losses every week</p>
-              <div class="cashback-info">
-                <div class="cashback-amount">Max cashback: $500</div>
-                <div class="cashback-period">Weekly</div>
-              </div>
-              <button class="claim-btn">Activate</button>
-            </div>
-          </div>
-          
-          <div class="promotion-card">
-            <div class="promotion-content">
-              <h3>VIP Program</h3>
-              <div class="bonus-amount">EXCLUSIVE REWARDS</div>
-              <p>Join our VIP program for exclusive bonuses and perks</p>
-              <div class="vip-features">
-                <div class="vip-level">
-                  <span class="level-name">Bronze</span>
-                  <span class="level-reward">5% Weekly Bonus</span>
+    <!-- Profile Modal -->
+    <div class="modal fade" id="profileModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-user-circle me-2"></i>User Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="vip-level">
-                  <span class="level-name">Gold</span>
-                  <span class="level-reward">10% Weekly Bonus</span>
+                <div class="modal-body">
+                    <div class="user-info">
+                        <div class="user-avatar"><i class="fas fa-user"></i></div>
+                        <div class="user-details">
+                            <h4>Player #1234</h4>
+                            <p class="user-level">Level: <span class="level-badge">Beginner</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="balance-section">
+                        <h6>Current Balance: $<span id="modalBalance">1,000</span></h6>
+                        <div class="deposit-controls">
+                            <button class="deposit-btn" onclick="depositForm(100)">+$100</button>
+                            <button class="deposit-btn" onclick="depositForm(500)">+$500</button>
+                            <button class="deposit-btn" onclick="depositForm(1000)">+$1,000</button>
+                        </div>
+                    </div>
+                    
+                    <!-- In-Profile Ad -->
+                    <div class="profile-ad">
+                        <div class="profile-ad-content">
+                            <div class="profile-ad-icon">🏆</div>
+                            <div class="profile-ad-text">
+                                <h6>Join Gaming Community</h6>
+                                <p>Connect with gamers worldwide on GameConnect</p>
+                            </div>
+                            <button class="profile-ad-btn" onclick="openAdLink('gaming_community')">Join Free</button>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-section">
+                        <h6>Game Statistics</h6>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-value">24</span>
+                                <span class="stat-label">Games Played</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">8</span>
+                                <span class="stat-label">Wins</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">$350</span>
+                                <span class="stat-label">Total Won</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="vip-level">
-                  <span class="level-name">Platinum</span>
-                  <span class="level-reward">15% Weekly Bonus</span>
-                </div>
-              </div>
-              <button class="claim-btn">Join VIP</button>
             </div>
-          </div>
         </div>
-      </div>
     </div>
 
-    <!-- Leaderboard Page -->
-    <div id="leaderboard-page" class="page">
-      <div class="page-header">
-        <h1><i class="fas fa-trophy me-3"></i>Leaderboard</h1>
-        <p>Compete with other players and win amazing prizes</p>
-      </div>
-      
-      <div class="leaderboard-container">
-        <div class="leaderboard-header">
-          <div class="time-filters">
-            <button class="time-filter active">Daily</button>
-            <button class="time-filter">Weekly</button>
-            <button class="time-filter">Monthly</button>
-            <button class="time-filter">All Time</button>
-          </div>
-          <div class="prize-pool">
-            <div class="prize-label">Today's Prize Pool</div>
-            <div class="prize-amount">$5,000</div>
-          </div>
+    <!-- Footer -->
+    <footer class="container text-center py-4 mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Lucky Spin Slots</h5>
+                <p>Free online casino games for entertainment purposes only.</p>
+            </div>
+            <div class="col-md-4">
+                <h5>Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a href="#home" data-page="home">Home</a></li>
+                    <li><a href="#games" data-page="games">Games</a></li>
+                    <li><a href="#promotions" data-page="promotions">Promotions</a></li>
+                    <li><a href="#support" data-page="support">Support</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h5>Legal</h5>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="showTermsForm()">Terms & Conditions</a></li>
+                    <li><a href="#" onclick="showPrivacyForm()">Privacy Policy</a></li>
+                    <li><a href="#" onclick="showCookiesForm()">Cookie Policy</a></li>
+                </ul>
+            </div>
         </div>
         
-        <div class="leaderboard-content">
-          <!-- Top 3 Winners -->
-          <div class="top-winners">
-            <div class="winner-card second">
-              <div class="winner-rank">2</div>
-              <div class="winner-avatar">
-                <i class="fas fa-user"></i>
-              </div>
-              <div class="winner-info">
-                <div class="winner-name">SarahM</div>
-                <div class="winner-prize">$750</div>
-              </div>
-              <div class="winner-stats">
-                <div class="stat">Wins: 12</div>
-                <div class="stat">Total: $2,450</div>
-              </div>
+        <!-- Footer Ad -->
+        <div class="footer-ad mt-4">
+            <div class="footer-ad-content">
+                <span class="footer-ad-badge">AD</span>
+                <span class="footer-ad-text">Looking for gaming PCs? Check out <strong>PowerPlay Systems</strong> for custom builds.</span>
+                <button class="footer-ad-btn" onclick="openAdLink('gaming_pc')">Build Now</button>
             </div>
-            
-            <div class="winner-card first">
-              <div class="winner-rank">1</div>
-              <div class="winner-avatar">
-                <i class="fas fa-crown"></i>
-              </div>
-              <div class="winner-info">
-                <div class="winner-name">JohnDoe</div>
-                <div class="winner-prize">$1,500</div>
-              </div>
-              <div class="winner-stats">
-                <div class="stat">Wins: 18</div>
-                <div class="stat">Total: $4,200</div>
-              </div>
-            </div>
-            
-            <div class="winner-card third">
-              <div class="winner-rank">3</div>
-              <div class="winner-avatar">
-                <i class="fas fa-user"></i>
-              </div>
-              <div class="winner-info">
-                <div class="winner-name">Mike_T</div>
-                <div class="winner-prize">$500</div>
-              </div>
-              <div class="winner-stats">
-                <div class="stat">Wins: 8</div>
-                <div class="stat">Total: $1,800</div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Leaderboard List -->
-          <div class="leaderboard-list">
-            <div class="leaderboard-item">
-              <div class="item-rank">4</div>
-              <div class="item-avatar">
-                <i class="fas fa-user"></i>
-              </div>
-              <div class="item-info">
-                <div class="item-name">Anna_92</div>
-                <div class="item-score">3,450 Points</div>
-              </div>
-              <div class="item-prize">$250</div>
-            </div>
-            
-            <div class="leaderboard-item">
-              <div class="item-rank">5</div>
-              <div class="item-avatar">
-                <i class="fas fa-user"></i>
-              </div>
-              <div class="item-info">
-                <div class="item-name">Lucky_7</div>
-                <div class="item-score">3,120 Points</div>
-              </div>
-              <div class="item-prize">$200</div>
-            </div>
-            
-            <div class="leaderboard-item current-user">
-              <div class="item-rank">15</div>
-              <div class="item-avatar">
-                <i class="fas fa-user"></i>
-              </div>
-              <div class="item-info">
-                <div class="item-name">You</div>
-                <div class="item-score">1,850 Points</div>
-              </div>
-              <div class="item-prize">$50</div>
-            </div>
-            
-            <!-- More leaderboard items -->
-            <div class="leaderboard-item">
-              <div class="item-rank">6</div>
-              <div class="item-avatar">
-                <i class="fas fa-user"></i>
-              </div>
-              <div class="item-info">
-                <div class="item-name">SpinMaster</div>
-                <div class="item-score">2,980 Points</div>
-              </div>
-              <div class="item-prize">$150</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Support Page -->
-    <div id="support-page" class="page">
-      <div class="page-header">
-        <h1><i class="fas fa-headset me-3"></i>Support Center</h1>
-        <p>We're here to help you 24/7</p>
-      </div>
-      
-      <div class="support-container">
-        <div class="support-options">
-          <div class="support-card">
-            <div class="support-icon">
-              <i class="fas fa-comments"></i>
-            </div>
-            <h3>Live Chat</h3>
-            <p>Get instant help from our support team</p>
-            <button class="support-btn">Start Chat</button>
-          </div>
-          
-          <div class="support-card">
-            <div class="support-icon">
-              <i class="fas fa-envelope"></i>
-            </div>
-            <h3>Email Support</h3>
-            <p>Send us an email and we'll reply within 24 hours</p>
-            <button class="support-btn">Send Email</button>
-          </div>
-          
-          <div class="support-card">
-            <div class="support-icon">
-              <i class="fas fa-file-alt"></i>
-            </div>
-            <h3>FAQ</h3>
-            <p>Find answers to common questions</p>
-            <button class="support-btn">View FAQ</button>
-          </div>
         </div>
         
-        <div class="faq-section">
-          <h3>Frequently Asked Questions</h3>
-          <div class="faq-list">
-            <div class="faq-item">
-              <div class="faq-question">
-                <span>How do I deposit money?</span>
-                <i class="fas fa-chevron-down"></i>
-              </div>
-              <div class="faq-answer">
-                <p>You can deposit money using various methods including credit cards, e-wallets, and bank transfers. Go to your profile and click "Deposit" to see all available options.</p>
-              </div>
-            </div>
-            
-            <div class="faq-item">
-              <div class="faq-question">
-                <span>Is my personal information safe?</span>
-                <i class="fas fa-chevron-down"></i>
-              </div>
-              <div class="faq-answer">
-                <p>Yes, we use industry-standard SSL encryption to protect your personal and financial information. Your data is never shared with third parties.</p>
-              </div>
-            </div>
-            
-            <div class="faq-item">
-              <div class="faq-question">
-                <span>How do I withdraw my winnings?</span>
-                <i class="fas fa-chevron-down"></i>
-              </div>
-              <div class="faq-answer">
-                <p>Withdrawals can be processed through the same method you used for deposit. Go to your profile, click "Withdraw", and follow the instructions. Processing time is 1-3 business days.</p>
-              </div>
-            </div>
-            
-            <div class="faq-item">
-              <div class="faq-question">
-                <span>What is the minimum deposit?</span>
-                <i class="fas fa-chevron-down"></i>
-              </div>
-              <div class="faq-answer">
-                <p>The minimum deposit amount is $10 for most payment methods. Some e-wallets may have different minimum requirements.</p>
-              </div>
-            </div>
-          </div>
+        <div class="mt-4 pt-3 border-top">
+            <p>This is a free demo game. No real money is involved. Must be 18+ to play real money games.</p>
+            <p>© 2024 Lucky Spin Slots. All rights reserved.</p>
         </div>
-        
-        <div class="contact-info">
-          <h3>Contact Information</h3>
-          <div class="contact-details">
-            <div class="contact-item">
-              <i class="fas fa-clock"></i>
-              <span>24/7 Support</span>
-            </div>
-            <div class="contact-item">
-              <i class="fas fa-envelope"></i>
-              <span>support@luckyspin.com</span>
-            </div>
-            <div class="contact-item">
-              <i class="fas fa-phone"></i>
-              <span>+1-800-LUCKY-SPIN</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
+    </footer>
 
-  <!-- ===== Profile Modal ===== -->
-  <div class="modal fade" id="profileModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title"><i class="fas fa-user-circle me-2"></i>User Profile</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <div class="user-info">
-            <div class="user-avatar">
-              <i class="fas fa-user"></i>
-            </div>
-            <div class="user-details">
-              <h4>Player #1234</h4>
-              <p class="user-level">Level: <span class="level-badge">Beginner</span></p>
-            </div>
-          </div>
-          
-          <div class="balance-section">
-            <h6>Current Balance: $<span id="modalBalance">1,000</span></h6>
-            <div class="deposit-controls">
-              <button class="deposit-btn" data-amount="100">+$100</button>
-              <button class="deposit-btn" data-amount="500">+$500</button>
-              <button class="deposit-btn" data-amount="1000">+$1,000</button>
-            </div>
-          </div>
-          
-          <div class="stats-section">
-            <h6>Game Statistics</h6>
-            <div class="stats-grid">
-              <div class="stat-item">
-                <span class="stat-value">24</span>
-                <span class="stat-label">Games Played</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-value">8</span>
-                <span class="stat-label">Wins</span>
-              </div>
-              <div class="stat-item">
-                <span class="stat-value">$350</span>
-                <span class="stat-label">Total Won</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <!-- External Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+    
+    <!-- Ad Tracking Script -->
+    <script>
+        // Ad products database
+        const adProducts = {
+            'gameboost': {
+                name: 'GameBoost Pro',
+                url: 'https://example.com/gameboost',
+                category: 'software',
+                commission: 0.15
+            },
+            'gaming_gear': {
+                name: 'ProGamer Gear',
+                url: 'https://example.com/gaminggear',
+                category: 'hardware',
+                commission: 0.20
+            },
+            'gaming_chair': {
+                name: 'ComfortMax Pro Gaming Chair',
+                url: 'https://example.com/gamingchair',
+                category: 'furniture',
+                commission: 0.25
+            },
+            'energy_drink': {
+                name: 'PowerFuel Energy',
+                url: 'https://example.com/energydrink',
+                category: 'consumables',
+                commission: 0.10
+            },
+            'headphones': {
+                name: 'SoundBlast Pro Headphones',
+                url: 'https://example.com/headphones',
+                category: 'audio',
+                commission: 0.18
+            },
+            'streaming_software': {
+                name: 'StreamMaster Pro',
+                url: 'https://example.com/streaming',
+                category: 'software',
+                commission: 0.30
+            },
+            'credit_card': {
+                name: 'GamerCredit Card',
+                url: 'https://example.com/creditcard',
+                category: 'financial',
+                commission: 0.50
+            },
+            'gaming_monitor': {
+                name: 'UltraGamer 240Hz Monitor',
+                url: 'https://example.com/monitor',
+                category: 'hardware',
+                commission: 0.22
+            },
+            'vpn': {
+                name: 'GameVPN',
+                url: 'https://example.com/vpn',
+                category: 'software',
+                commission: 0.35
+            },
+            'performance_boost': {
+                name: 'PerformanceBoost Pro',
+                url: 'https://example.com/performance',
+                category: 'software',
+                commission: 0.28
+            },
+            'gaming_gear_full': {
+                name: 'GameGear Pro Collection',
+                url: 'https://example.com/gearcollection',
+                category: 'hardware',
+                commission: 0.25
+            },
+            'gaming_community': {
+                name: 'GameConnect Community',
+                url: 'https://example.com/community',
+                category: 'social',
+                commission: 0.05
+            },
+            'gaming_pc': {
+                name: 'PowerPlay Gaming PC',
+                url: 'https://example.com/gamingpc',
+                category: 'hardware',
+                commission: 0.40
+            }
+        };
 
-  <!-- ===== Footer ===== -->
-  <footer class="container text-center">
-    <p>This is a free demo game. No real money is involved. Must be 18+ to play real money games.</p>
-    <p>© 2025 Lucky Spin Slots. All rights reserved.</p>
-  </footer>
+        // Track ad clicks
+        let adClicks = JSON.parse(localStorage.getItem('adClicks') || '[]');
+        let adRevenue = parseFloat(localStorage.getItem('adRevenue') || '0');
 
-  <!-- ===== Scripts ===== -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="script.js"></script>
+        function openAdLink(productKey) {
+            const product = adProducts[productKey];
+            if (product) {
+                // Track the click
+                const clickData = {
+                    product: product.name,
+                    category: product.category,
+                    timestamp: new Date().toISOString(),
+                    revenue: product.commission * 100 // Simulated revenue
+                };
+                
+                adClicks.push(clickData);
+                adRevenue += clickData.revenue;
+                
+                localStorage.setItem('adClicks', JSON.stringify(adClicks));
+                localStorage.setItem('adRevenue', adRevenue.toString());
+                
+                // Show form instead of alert
+                const form = document.createElement('div');
+                form.className = 'message-form';
+                form.innerHTML = `
+                    <div class="form-content">
+                        <div class="form-icon">💰</div>
+                        <div class="form-title">Ad Bonus Claimed!</div>
+                        <div class="form-message">
+                            <p>You've earned <strong>$${clickData.revenue.toFixed(2)}</strong> bonus for checking ${product.name}!</p>
+                            <p>This bonus has been added to your account.</p>
+                        </div>
+                        <div class="form-actions">
+                            <button class="form-btn primary" onclick="this.closest('.message-form').remove()">OK</button>
+                        </div>
+                    </div>
+                `;
+                
+                document.getElementById('messageFormsContainer').appendChild(form);
+                setTimeout(() => form.classList.add('show'), 10);
+                
+                // Give user bonus for clicking ad
+                if (window.giveAdBonus) {
+                    window.giveAdBonus(productKey);
+                }
+            }
+        }
 
+        // Rotate ads periodically
+        function rotateAds() {
+            const ads = document.querySelectorAll('[class*="ad-"]:not(.ad-header-banner)');
+            ads.forEach(ad => {
+                if (Math.random() > 0.7) { // 30% chance to rotate
+                    ad.style.opacity = '0.7';
+                    setTimeout(() => {
+                        ad.style.opacity = '1';
+                    }, 300);
+                }
+            });
+        }
+
+        // Rotate ads every 30 seconds
+        setInterval(rotateAds, 30000);
+
+        // Show popup ad on first visit
+        if (!localStorage.getItem('firstVisit')) {
+            setTimeout(() => {
+                const popupModal = new bootstrap.Modal(document.getElementById('popupAdModal'));
+                popupModal.show();
+                localStorage.setItem('firstVisit', 'true');
+            }, 3000);
+        }
+
+        // Show interstitial ad every 10 minutes
+        setInterval(() => {
+            if (Math.random() > 0.5) { // 50% chance
+                document.getElementById('interstitialAd').classList.add('active');
+            }
+        }, 600000);
+    </script>
+
+    
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-0CBN2RYEXR"></script>
   <script>

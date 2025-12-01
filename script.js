@@ -1,5 +1,9 @@
-// script.js
+// script.js - Полностью рабочий сайт со всеми формами вместо всплывающих сообщений
+
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🎰 Lucky Spin Slots - Полностью рабочий сайт загружен!');
+    
+    // ===== ПЕРЕМЕННЫЕ =====
     const symbols = ['🍒', '🍋', '🍊', '💎', '7️⃣'];
     const reel1 = document.getElementById('reel1');
     const reel2 = document.getElementById('reel2');
@@ -14,141 +18,122 @@ document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const mobileNav = document.getElementById('mobileNav');
     const modalBalance = document.getElementById('modalBalance');
+    const messageFormsContainer = document.getElementById('messageFormsContainer');
     
+    // ===== СОСТОЯНИЕ ИГРЫ =====
     let balance = 1000;
     let betAmount = 10;
     let isSpinning = false;
     let gamesPlayed = 0;
     let wins = 0;
     let totalWon = 0;
+    let spinCount = 0;
+    let currentLevel = 'Beginner';
+    let playerExperience = 0;
     
-    // Initialize Bootstrap modal
-    const profileModal = new bootstrap.Modal(document.getElementById('profileModal'));
+    // ===== ФУНКЦИИ ФОРМ =====
     
-    // AdSense configuration with explicit sizes
-    const adConfigs = [
-        { 
-            containerId: 'ad-container-1', 
-            adSlot: '3663384197',
-            width: 300,
-            height: 250
-        },
-        { 
-            containerId: 'ad-container-2', 
-            adSlot: '3663384197',
-            width: 300,
-            height: 250
-        },
-        { 
-            containerId: 'ad-container-3', 
-            adSlot: '9518346104',
-            width: 300,
-            height: 250
+    function showForm(type, title, message, options = {}) {
+        const formId = 'form_' + Date.now();
+        const form = document.createElement('div');
+        form.className = `message-form ${type}`;
+        form.id = formId;
+        
+        let actionsHTML = '';
+        if (options.actions) {
+            actionsHTML = options.actions.map(action => 
+                `<button class="form-btn ${action.type || 'primary'}" onclick="${action.onClick}">${action.label}</button>`
+            ).join('');
+        } else {
+            actionsHTML = `<button class="form-btn primary" onclick="document.getElementById('${formId}').remove()">OK</button>`;
         }
-    ];
-
-    // Wait for page to be fully rendered
-    function initializeAds() {
-        // Wait a bit for layout to stabilize
-        setTimeout(() => {
-            loadAdsWithRetry();
-        }, 2000);
-    }
-
-    function loadAdsWithRetry(retryCount = 0) {
-        if (typeof adsbygoogle === 'undefined') {
-            if (retryCount < 5) {
-                setTimeout(() => loadAdsWithRetry(retryCount + 1), 500);
-            }
-            return;
-        }
-
-        adConfigs.forEach((config, index) => {
-            const container = document.getElementById(config.containerId);
-            if (container && !container.hasAttribute('data-ad-loaded')) {
-                
-                // Clear container
-                container.innerHTML = '';
-                
-                // Create ad element with explicit dimensions
-                const adElement = document.createElement('ins');
-                adElement.className = 'adsbygoogle';
-                adElement.style.display = 'block';
-                adElement.style.width = config.width + 'px';
-                adElement.style.height = config.height + 'px';
-                adElement.style.margin = '0 auto';
-                adElement.setAttribute('data-ad-client', 'ca-pub-5498731823693191');
-                adElement.setAttribute('data-ad-slot', config.adSlot);
-                
-                container.appendChild(adElement);
-                container.setAttribute('data-ad-loaded', 'true');
-                
-                // Load ad with increasing delays
-                setTimeout(() => {
-                    try {
-                        (adsbygoogle = window.adsbygoogle || []).push({});
-                        console.log(`Ad ${index + 1} loaded successfully`);
-                    } catch (error) {
-                        console.error(`Error loading ad ${index + 1}:`, error);
-                        // Retry once
-                        setTimeout(() => {
-                            try {
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                            } catch (e) {
-                                showAdFallback(container);
-                            }
-                        }, 1000);
-                    }
-                }, index * 1500);
-            }
-        });
-    }
-
-    // Show fallback content
-    function showAdFallback(container) {
-        container.innerHTML = `
-            <div class="ad-fallback">
-                <div class="ad-fallback-content">
-                    <div class="ad-size">Advertisement</div>
-                    <div class="ad-message">300 x 250</div>
-                    <div class="ad-cta">Your ad here</div>
+        
+        form.innerHTML = `
+            <div class="form-content">
+                <div class="form-icon">${options.icon || getIconForType(type)}</div>
+                <div class="form-title">${title}</div>
+                <div class="form-message">${message}</div>
+                ${options.inputs ? `
+                <div class="form-input-group">
+                    ${options.inputs}
+                </div>
+                ` : ''}
+                ${options.progress ? `
+                <div class="form-progress">
+                    <div class="form-progress-bar" style="width: ${options.progress}%"></div>
+                </div>
+                ` : ''}
+                <div class="form-actions">
+                    ${actionsHTML}
                 </div>
             </div>
         `;
-    }
-
-    // Reload ads when page changes
-    function reloadAds() {
-        setTimeout(() => {
-            if (typeof adsbygoogle !== 'undefined') {
-                adConfigs.forEach((config, index) => {
-                    const container = document.getElementById(config.containerId);
-                    if (container && container.hasAttribute('data-ad-loaded')) {
-                        setTimeout(() => {
-                            try {
-                                (adsbygoogle = window.adsbygoogle || []).push({});
-                            } catch (error) {
-                                console.error(`Error reloading ad ${index + 1}:`, error);
-                            }
-                        }, index * 800);
-                    }
-                });
-            }
-        }, 500);
+        
+        messageFormsContainer.appendChild(form);
+        setTimeout(() => form.classList.add('show'), 10);
+        
+        // Автоматическое удаление через 5 секунд, если не требуется действие
+        if (!options.actions && !options.inputs) {
+            setTimeout(() => {
+                if (document.getElementById(formId)) {
+                    form.classList.remove('show');
+                    setTimeout(() => {
+                        if (document.getElementById(formId)) {
+                            document.getElementById(formId).remove();
+                        }
+                    }, 500);
+                }
+            }, 5000);
+        }
+        
+        return formId;
     }
     
-    // Update bet amount display
+    function getIconForType(type) {
+        switch(type) {
+            case 'success': return '✅';
+            case 'error': return '❌';
+            case 'warning': return '⚠️';
+            case 'info': return 'ℹ️';
+            default: return '💬';
+        }
+    }
+    
+    // ===== ФУНКЦИИ ИГРЫ =====
+    
     function updateBetDisplay() {
         betAmountElement.textContent = betAmount;
     }
     
-    // Update balance display
     function updateBalanceDisplay() {
         balanceElement.textContent = balance.toLocaleString();
-        modalBalance.textContent = balance.toLocaleString();
+        if (modalBalance) modalBalance.textContent = balance.toLocaleString();
     }
     
-    // Spin animation for a single reel
+    function updatePlayerLevel() {
+        const levelBadge = document.querySelector('.level-badge');
+        if (playerExperience >= 1000) {
+            currentLevel = 'Expert';
+            if (levelBadge) levelBadge.style.background = 'linear-gradient(45deg, #ff0055, #ff8800)';
+        } else if (playerExperience >= 500) {
+            currentLevel = 'Advanced';
+            if (levelBadge) levelBadge.style.background = 'linear-gradient(45deg, #00ffb0, #2575fc)';
+        } else if (playerExperience >= 100) {
+            currentLevel = 'Intermediate';
+            if (levelBadge) levelBadge.style.background = 'linear-gradient(45deg, #6a11cb, #2575fc)';
+        }
+        if (levelBadge) levelBadge.textContent = currentLevel;
+    }
+    
+    function addExperience(points) {
+        playerExperience += points;
+        updatePlayerLevel();
+        
+        if (playerExperience === 100 || playerExperience === 500 || playerExperience === 1000) {
+            showForm('success', '🎉 Level Up!', `You are now ${currentLevel}!`);
+        }
+    }
+    
     function spinReel(reel, duration) {
         return new Promise(resolve => {
             const startTime = Date.now();
@@ -166,13 +151,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Main spin function
     async function spin() {
         if (isSpinning) return;
         
         if (balance < betAmount) {
-            winMessage.textContent = "Insufficient balance!";
-            winMessage.style.color = "#ff0055";
+            showForm('error', 'Insufficient Balance', 'You need more coins to place this bet.', {
+                actions: [
+                    { label: 'Deposit', type: 'primary', onClick: "depositForm(100)" },
+                    { label: 'Cancel', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+                ]
+            });
             return;
         }
         
@@ -180,38 +168,33 @@ document.addEventListener('DOMContentLoaded', function() {
         winMessage.textContent = "";
         balance -= betAmount;
         gamesPlayed++;
+        spinCount++;
         updateBalanceDisplay();
         
-        // Add spinning animation class
+        addExperience(1);
+        
         reel1.classList.add('spinning');
         reel2.classList.add('spinning');
         reel3.classList.add('spinning');
-        
-        // Disable spin button during spin
         spinBtn.disabled = true;
         
-        // Spin reels with different durations for visual effect
         const spin1 = spinReel(reel1, 1000);
         const spin2 = spinReel(reel2, 1500);
         const spin3 = spinReel(reel3, 2000);
         
-        // Wait for all reels to stop
         const results = await Promise.all([spin1, spin2, spin3]);
         
-        // Remove spinning animation class
         reel1.classList.remove('spinning');
         reel2.classList.remove('spinning');
         reel3.classList.remove('spinning');
-        
-        // Re-enable spin button
         spinBtn.disabled = false;
         
-        // Check for win
         checkWin(results);
         isSpinning = false;
+        
+        showAdsAfterSpin();
     }
     
-    // Check if the spin resulted in a win
     function checkWin(results) {
         const [a, b, c] = results;
         
@@ -230,14 +213,24 @@ document.addEventListener('DOMContentLoaded', function() {
             wins++;
             updateBalanceDisplay();
             
+            addExperience(10);
+            
             winMessage.textContent = `JACKPOT! YOU WON $${winAmount}`;
             winMessage.style.color = "#00ffb0";
             
-            // Add celebration effect
             document.querySelector('.slot-machine').classList.add('celebrate');
             setTimeout(() => {
                 document.querySelector('.slot-machine').classList.remove('celebrate');
             }, 2000);
+            
+            showForm('success', '🎰 JACKPOT!', `Congratulations! You won $${winAmount}!`, {
+                icon: '💰',
+                progress: 100
+            });
+            
+            if (winAmount >= 200) {
+                showAchievement("Big Winner!", `You won $${winAmount}!`);
+            }
         } else {
             winMessage.textContent = "Try again!";
             winMessage.style.color = "#ff8800";
@@ -246,98 +239,161 @@ document.addEventListener('DOMContentLoaded', function() {
         updateStats();
     }
     
-    // Update game statistics
-    function updateStats() {
-        document.querySelector('.stat-item:nth-child(1) .stat-value').textContent = gamesPlayed;
-        document.querySelector('.stat-item:nth-child(2) .stat-value').textContent = wins;
-        document.querySelector('.stat-item:nth-child(3) .stat-value').textContent = totalWon;
+    function showAchievement(title, message) {
+        showForm('success', `🏆 ${title}`, message, {
+            icon: '🏆'
+        });
     }
     
-    // Deposit money
+    function updateStats() {
+        document.querySelectorAll('.stat-item').forEach((item, index) => {
+            const valueEl = item.querySelector('.stat-value');
+            if (valueEl) {
+                if (index === 0) valueEl.textContent = gamesPlayed;
+                if (index === 1) valueEl.textContent = wins;
+                if (index === 2) valueEl.textContent = totalWon;
+            }
+        });
+    }
+    
     function deposit(amount) {
         balance += amount;
         updateBalanceDisplay();
+        addExperience(5);
         
-        // Show deposit confirmation
-        const originalText = winMessage.textContent;
-        winMessage.textContent = `+$${amount} Added to Balance!`;
-        winMessage.style.color = "#00ffb0";
-        
-        setTimeout(() => {
-            winMessage.textContent = originalText;
-        }, 2000);
+        showForm('success', '💰 Deposit Successful', `$${amount} has been added to your balance!`);
     }
     
-    // Page navigation system
+    function showAdsAfterSpin() {
+        if (spinCount % 5 === 0) {
+            setTimeout(() => {
+                showRandomPopupAd();
+            }, 1500);
+        }
+        
+        if (spinCount % 10 === 0) {
+            setTimeout(() => {
+                showInterstitialAd();
+            }, 2000);
+        }
+    }
+    
+    // ===== РЕКЛАМНЫЕ ФУНКЦИИ =====
+    
+    function showRandomPopupAd() {
+        const ads = [
+            {
+                title: "Upgrade Your Gaming Setup!",
+                message: "Check out premium gaming gear at GameGear Pro",
+                features: ["🎮 Mechanical Keyboards", "🖱️ Gaming Mice", "🎧 Headsets"]
+            },
+            {
+                title: "Boost Your Performance!",
+                message: "Try GameBoost Pro for optimal gaming experience",
+                features: ["⚡ FPS Boost", "🛡️ Security", "🎯 Optimization"]
+            },
+            {
+                title: "Join Gaming Community!",
+                message: "Connect with gamers worldwide on GameConnect",
+                features: ["🌍 Global Network", "🎮 Tournaments", "🏆 Rewards"]
+            }
+        ];
+        
+        const randomAd = ads[Math.floor(Math.random() * ads.length)];
+        document.getElementById('popupTitle').textContent = randomAd.title;
+        document.getElementById('popupMessage').textContent = randomAd.message;
+        
+        const features = document.querySelectorAll('.popup-features .feature-item span');
+        features.forEach((feature, index) => {
+            if (randomAd.features[index]) {
+                feature.textContent = randomAd.features[index];
+            }
+        });
+        
+        const popupModal = new bootstrap.Modal(document.getElementById('popupAdModal'));
+        popupModal.show();
+    }
+    
+    function showInterstitialAd() {
+        const interstitialAd = document.getElementById('interstitialAd');
+        if (interstitialAd) {
+            interstitialAd.classList.add('active');
+        }
+    }
+    
+    // ===== UI ФУНКЦИИ =====
+    
+    function showMessage(message, type = 'info') {
+        const colors = {
+            success: '#00ffb0',
+            error: '#ff0055',
+            warning: '#ff8800',
+            info: '#ffd700'
+        };
+        
+        winMessage.textContent = message;
+        winMessage.style.color = colors[type] || colors.info;
+        
+        if (type !== 'error') {
+            setTimeout(() => {
+                if (!winMessage.textContent.includes('WON')) {
+                    winMessage.textContent = "";
+                }
+            }, 3000);
+        }
+    }
+    
     function showPage(pageId) {
-        // Hide all pages
         document.querySelectorAll('.page').forEach(page => {
             page.classList.remove('active');
         });
         
-        // Show selected page
         const activePage = document.getElementById(`${pageId}-page`);
         if (activePage) {
             activePage.classList.add('active');
         }
         
-        // Update page title
-        const pageTitles = {
-            'home': 'Lucky Spin Slots - Play Free Online',
-            'games': 'Our Games - Lucky Spin Slots',
-            'promotions': 'Promotions - Lucky Spin Slots',
-            'leaderboard': 'Leaderboard - Lucky Spin Slots',
-            'support': 'Support - Lucky Spin Slots'
-        };
-        
-        document.title = pageTitles[pageId] || 'Lucky Spin Slots';
-        
-        // Reload ads when switching pages
-        reloadAds();
-    }
-    
-    // FAQ functionality
-    function initFAQ() {
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                item.classList.toggle('active');
-            });
-        });
-    }
-    
-    // Initialize timer for promotions
-    function initPromoTimer() {
-        // Calculate time until next Friday
-        const now = new Date();
-        const daysUntilFriday = (5 - now.getDay() + 7) % 7;
-        const nextFriday = new Date(now);
-        nextFriday.setDate(now.getDate() + daysUntilFriday);
-        nextFriday.setHours(0, 0, 0, 0);
-        
-        function updateTimer() {
-            const now = new Date();
-            const diff = nextFriday - now;
-            
-            if (diff <= 0) {
-                // It's Friday!
-                document.getElementById('fridayTimer').textContent = "Available Now!";
-                return;
+        document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-page') === pageId) {
+                link.classList.add('active');
             }
-            
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            
-            document.getElementById('fridayTimer').textContent = `${days}d ${hours}h ${minutes}m`;
+        });
+        
+        if (mobileNav.classList.contains('active')) {
+            mobileNav.classList.remove('active');
+            mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
         }
         
-        updateTimer();
-        setInterval(updateTimer, 60000); // Update every minute
+        updateLiveStats();
     }
     
-    // Event listeners
+    function updateLiveStats() {
+        const onlineEl = document.getElementById('onlinePlayers');
+        const winsEl = document.getElementById('todayWins');
+        const jackpotEl = document.getElementById('jackpotAmount');
+        
+        if (onlineEl) {
+            const base = 1254;
+            const variation = Math.floor(Math.random() * 200) - 100;
+            onlineEl.textContent = (base + variation).toLocaleString();
+        }
+        
+        if (winsEl) {
+            const base = 45230;
+            const increase = gamesPlayed * 10;
+            winsEl.textContent = '$' + (base + increase).toLocaleString();
+        }
+        
+        if (jackpotEl) {
+            const base = 2500000;
+            const increase = gamesPlayed * 50;
+            jackpotEl.textContent = '$' + ((base + increase) / 1000000).toFixed(1) + 'M';
+        }
+    }
+    
+    // ===== ОБРАБОТЧИКИ СОБЫТИЙ =====
+    
     spinBtn.addEventListener('click', spin);
     
     decreaseBetBtn.addEventListener('click', function() {
@@ -354,245 +410,326 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Profile modal
     profileBtn.addEventListener('click', function() {
+        const profileModal = new bootstrap.Modal(document.getElementById('profileModal'));
         profileModal.show();
     });
     
-    // Deposit buttons
-    document.querySelectorAll('.deposit-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const amount = parseInt(this.getAttribute('data-amount'));
-            deposit(amount);
-        });
-    });
-    
-    // Mobile menu toggle
     mobileMenuToggle.addEventListener('click', function() {
         mobileNav.classList.toggle('active');
         this.innerHTML = mobileNav.classList.contains('active') ? 
             '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
     });
     
-    // Navigation links
     document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            
             const pageId = this.getAttribute('data-page');
-            
-            // Remove active class from all links
-            document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(l => {
-                l.classList.remove('active');
-            });
-            
-            // Add active class to clicked link
-            this.classList.add('active');
-            
-            // Close mobile menu if open
-            if (mobileNav.classList.contains('active')) {
-                mobileNav.classList.remove('active');
-                mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-            
-            // Show the selected page
             showPage(pageId);
         });
     });
     
-    // Play buttons on games page
     document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('play-btn')) {
-            // Navigate to home page and show slot machine
-            document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('data-page') === 'home') {
-                    link.classList.add('active');
-                }
-            });
+        if (e.target.classList.contains('play-btn') || e.target.classList.contains('mini-play-btn')) {
+            const gameName = e.target.closest('.game-card, .game-mini-card')?.querySelector('h3, h6')?.textContent || 'Game';
+            showForm('info', `🎮 Loading ${gameName}`, 'The game is loading... Good luck!');
             showPage('home');
-            
-            // Show message about the game
-            winMessage.textContent = "Welcome to Lucky Slots! Place your bet and spin to win!";
-            winMessage.style.color = "#ffd700";
+            addExperience(15);
         }
-    });
-    
-    // Time filters on leaderboard
-    document.querySelectorAll('.time-filter').forEach(filter => {
-        filter.addEventListener('click', function() {
-            document.querySelectorAll('.time-filter').forEach(f => f.classList.remove('active'));
-            this.classList.add('active');
-            // Here you would typically load different leaderboard data
-        });
-    });
-    
-    // Support buttons
-    document.addEventListener('click', function(e) {
+        
+        if (e.target.classList.contains('claim-btn')) {
+            const bonusName = e.target.closest('.promotion-card')?.querySelector('h3, h4')?.textContent || 'Bonus';
+            const bonusAmount = bonusName.includes('Welcome') ? 1000 : 
+                               bonusName.includes('Free') ? 200 : 
+                               bonusName.includes('Cashback') ? 150 : 100;
+            
+            balance += bonusAmount;
+            updateBalanceDisplay();
+            addExperience(30);
+            
+            showForm('success', '🎉 Bonus Claimed!', `${bonusName} claimed! $${bonusAmount} added to your balance!`);
+            showAchievement("Bonus Hunter!", `Claimed ${bonusName}`);
+        }
+        
         if (e.target.classList.contains('support-btn')) {
             const action = e.target.textContent;
-            let message = '';
-            
-            switch(action) {
-                case 'Start Chat':
-                    message = "Live chat support will be available soon!";
-                    break;
-                case 'Send Email':
-                    message = "Redirecting to email support...";
-                    break;
-                case 'View FAQ':
-                    message = "FAQ section is now expanded below.";
-                    // Expand all FAQ items
-                    document.querySelectorAll('.faq-item').forEach(item => {
-                        item.classList.add('active');
-                    });
-                    break;
-                default:
-                    message = "Support feature coming soon!";
+            if (action.includes('Chat')) {
+                showForm('info', '💬 Live Chat', 'Connecting you to a support agent...', {
+                    progress: 75,
+                    actions: [
+                        { label: 'Continue', type: 'primary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+                    ]
+                });
+            } else if (action.includes('Email')) {
+                showForm('info', '📧 Email Support', 'Email: support@luckyspinslots.com', {
+                    inputs: '<textarea placeholder="Type your message here..." rows="3"></textarea>',
+                    actions: [
+                        { label: 'Send Email', type: 'primary', onClick: "document.getElementById(this.closest('.message-form').id).remove(); alert('Email sent successfully!')" },
+                        { label: 'Cancel', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+                    ]
+                });
+            } else if (action.includes('Call')) {
+                showForm('info', '📞 Call Support', 'Call us at: 1-800-LUCKY-SPIN', {
+                    actions: [
+                        { label: 'Dial Now', type: 'primary', onClick: "document.getElementById(this.closest('.message-form').id).remove(); alert('Calling support...')" },
+                        { label: 'Cancel', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+                    ]
+                });
             }
-            
-            winMessage.textContent = message;
-            winMessage.style.color = "#00ffb0";
-            
-            // Navigate to home to show the message
-            showPage('home');
-            document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('data-page') === 'home') {
-                    link.classList.add('active');
-                }
-            });
+        }
+        
+        if (e.target.classList.contains('deposit-btn')) {
+            const amount = parseInt(e.target.textContent.replace('+$', '')) || 100;
+            deposit(amount);
         }
     });
     
-    // Claim buttons on promotions
-    document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('claim-btn')) {
-            const promotion = e.target.closest('.promotion-card');
-            const title = promotion.querySelector('h3').textContent;
-            
-            let message = '';
-            let bonusAmount = 0;
-            
-            switch(title) {
-                case 'Welcome Bonus':
-                    message = "Welcome bonus claimed! $1000 added to your balance!";
-                    bonusAmount = 1000;
-                    break;
-                case 'Free Spins Friday':
-                    message = "50 Free Spins added to your account!";
-                    break;
-                case 'Cashback Bonus':
-                    message = "Cashback bonus activated! You'll receive 10% cashback weekly.";
-                    break;
-                case 'VIP Program':
-                    message = "Welcome to our VIP program! Exclusive rewards unlocked.";
-                    break;
-                default:
-                    message = "Bonus claimed successfully!";
+    // Email subscription
+    const emailForm = document.getElementById('emailSubscribeForm');
+    if (emailForm) {
+        emailForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailInput = this.querySelector('input[type="email"]');
+            if (emailInput && emailInput.value) {
+                showForm('success', '✅ Subscribed!', 'Welcome bonus added! Thank you for subscribing to our newsletter.', {
+                    icon: '🎉'
+                });
+                const bonus = 50;
+                balance += bonus;
+                updateBalanceDisplay();
+                emailForm.reset();
             }
-            
-            if (bonusAmount > 0) {
-                deposit(bonusAmount);
-            }
-            
-            winMessage.textContent = message;
-            winMessage.style.color = "#00ffb0";
-            
-            // Navigate to home to show the message
-            showPage('home');
-            document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('data-page') === 'home') {
-                    link.classList.add('active');
-                }
-            });
-        }
-    });
+        });
+    }
     
-    // Initialize
+    // ===== ГЛОБАЛЬНЫЕ ФУНКЦИИ =====
+    
+    window.openAdLink = function(productKey) {
+        const products = {
+            'gameboost': 'GameBoost Pro',
+            'gaming_gear': 'ProGamer Gear',
+            'gaming_chair': 'ComfortMax Pro Gaming Chair',
+            'energy_drink': 'PowerFuel Energy',
+            'headphones': 'SoundBlast Pro Headphones',
+            'streaming_software': 'StreamMaster Pro',
+            'credit_card': 'GamerCredit Card',
+            'gaming_monitor': 'UltraGamer 240Hz Monitor',
+            'vpn': 'GameVPN',
+            'performance_boost': 'PerformanceBoost Pro',
+            'gaming_gear_full': 'GameGear Pro Collection',
+            'gaming_community': 'GameConnect Community',
+            'gaming_pc': 'PowerPlay Gaming PC'
+        };
+        
+        const productName = products[productKey] || 'Product';
+        showForm('success', '🎁 Ad Bonus!', `You earned a $25 bonus for checking ${productName}!`, {
+            icon: '💰'
+        });
+        balance += 25;
+        updateBalanceDisplay();
+        addExperience(10);
+    };
+    
+    window.giveAdBonus = function(productKey) {
+        balance += 25;
+        updateBalanceDisplay();
+        showForm('success', '🎁 Bonus Added!', '+$25 bonus for clicking ad!', {
+            icon: '💰'
+        });
+    };
+    
+    window.closeInterstitial = function() {
+        const interstitialAd = document.getElementById('interstitialAd');
+        if (interstitialAd) {
+            interstitialAd.classList.remove('active');
+        }
+    };
+    
+    window.claimBonusForm = function(type) {
+        const bonuses = {
+            'welcome': 1000,
+            'daily': 100,
+            'weekly': 250
+        };
+        
+        const amount = bonuses[type] || 100;
+        balance += amount;
+        updateBalanceDisplay();
+        showForm('success', '🎉 Bonus Claimed!', `Claimed ${type} bonus! +$${amount} added!`, {
+            icon: '💰'
+        });
+    };
+    
+    window.showJackpotInfoForm = function() {
+        showForm('info', '💰 Progressive Jackpot', 'Jackpot starts at $2,500,000! Play now for a chance to win big!', {
+            icon: '🎰',
+            actions: [
+                { label: 'Play Now', type: 'primary', onClick: "document.getElementById(this.closest('.message-form').id).remove(); showPage('home')" },
+                { label: 'Learn More', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+            ]
+        });
+    };
+    
+    window.playGameForm = function(gameName) {
+        showForm('info', `🎮 Starting ${gameName}`, 'The game is loading... Get ready to play! Good luck!', {
+            progress: 50,
+            actions: [
+                { label: 'OK', type: 'primary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+            ]
+        });
+        showPage('home');
+    };
+    
+    window.startLiveChatForm = function() {
+        showForm('info', '💬 Live Chat Support', 'Connecting you to a live support agent...', {
+            progress: 60,
+            inputs: '<input type="text" placeholder="Type your question here...">',
+            actions: [
+                { label: 'Send', type: 'primary', onClick: "document.getElementById(this.closest('.message-form').id).remove(); showForm('success', 'Message Sent', 'Support agent will reply shortly.')" },
+                { label: 'Cancel', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+            ]
+        });
+    };
+    
+    window.sendSupportEmailForm = function() {
+        showForm('info', '📧 Email Support', 'Please provide details about your issue:', {
+            inputs: `
+                <input type="email" placeholder="Your email" required>
+                <textarea placeholder="Describe your issue..." rows="4" required></textarea>
+            `,
+            actions: [
+                { label: 'Send Email', type: 'primary', onClick: "document.getElementById(this.closest('.message-form').id).remove(); showForm('success', 'Email Sent', 'Thank you! We will reply within 24 hours.')" },
+                { label: 'Cancel', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+            ]
+        });
+    };
+    
+    window.callSupportForm = function() {
+        showForm('info', '📞 Phone Support', 'Our support line: 1-800-LUCKY-SPIN', {
+            actions: [
+                { label: 'Call Now', type: 'primary', onClick: "document.getElementById(this.closest('.message-form').id).remove(); showForm('info', 'Calling...', 'Dialing 1-800-LUCKY-SPIN...')" },
+                { label: 'Cancel', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+            ]
+        });
+    };
+    
+    window.depositForm = function(amount) {
+        deposit(amount);
+    };
+    
+    window.changeLeaderboardPeriodForm = function(period) {
+        document.querySelectorAll('.time-filter').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.textContent.toLowerCase().includes(period)) {
+                btn.classList.add('active');
+            }
+        });
+        
+        showForm('info', `📊 ${period.charAt(0).toUpperCase() + period.slice(1)} Leaderboard`, 'Loading leaderboard data...', {
+            progress: 80
+        });
+        
+        setTimeout(() => {
+            showForm('success', 'Leaderboard Loaded', `${period.charAt(0).toUpperCase() + period.slice(1)} leaderboard loaded successfully!`, {
+                icon: '🏆'
+            });
+        }, 800);
+    };
+    
+    window.showTermsForm = function() {
+        showForm('info', '📄 Terms & Conditions', 'This is a demo casino game for entertainment purposes only. No real money is involved.', {
+            actions: [
+                { label: 'I Agree', type: 'primary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" },
+                { label: 'Close', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+            ]
+        });
+    };
+    
+    window.showPrivacyForm = function() {
+        showForm('info', '🔒 Privacy Policy', 'Your data is stored locally in your browser. We do not collect personal information.', {
+            actions: [
+                { label: 'Accept', type: 'primary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" },
+                { label: 'Close', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+            ]
+        });
+    };
+    
+    window.showCookiesForm = function() {
+        showForm('info', '🍪 Cookie Policy', 'We use localStorage to save your game progress. No tracking cookies are used.', {
+            actions: [
+                { label: 'Accept All', type: 'primary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" },
+                { label: 'Customize', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+            ]
+        });
+    };
+    
+    // ===== ИНИЦИАЛИЗАЦИЯ =====
     updateBetDisplay();
     updateBalanceDisplay();
     updateStats();
-    initFAQ();
-    initPromoTimer();
-    showPage('home'); // Show home page by default
+    updatePlayerLevel();
+    showPage('home');
     
-    // Initialize ads after page is fully loaded
-    window.addEventListener('load', function() {
-        setTimeout(initializeAds, 1000);
-    });
+    setInterval(updateLiveStats, 30000);
     
-    // Add CSS for spinning animation and ads
-    const style = document.createElement('style');
-    style.textContent = `
-        .spinning {
-            animation: spin 0.1s infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-            100% { transform: translateY(0); }
-        }
-        
-        .celebrate {
-            animation: celebrate 0.5s;
-        }
-        
-        @keyframes celebrate {
-            0%, 100% { box-shadow: 0 0 40px rgba(0, 0, 0, 0.8); }
-            50% { box-shadow: 0 0 60px gold; }
-        }
-        
-        /* Ad fallback styles */
-        .ad-fallback {
-            background: #1a0b2e;
-            width: 100%;
-            height: 250px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .ad-fallback-content {
-            text-align: center;
-            color: #666;
-        }
-        
-        .ad-fallback .ad-size {
-            font-size: 1rem;
-            margin-bottom: 8px;
-            color: #888;
-        }
-        
-        .ad-fallback .ad-message {
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-        }
-        
-        .ad-fallback .ad-cta {
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
-        
-        /* Ensure ads are properly sized and visible */
-        .adsbygoogle {
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 0 auto;
-            min-width: 300px;
-            min-height: 250px;
-        }
-        
-        .ad-slot {
-            min-height: 250px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    `;
-    document.head.appendChild(style);
+    // Show welcome form after 3 seconds
+    setTimeout(() => {
+        showForm('info', '🎉 Welcome to Lucky Spin Slots!', 'Enjoy free casino games. Claim your welcome bonus to get started!', {
+            icon: '🎰',
+            actions: [
+                { label: 'Claim Bonus', type: 'primary', onClick: "claimBonusForm('welcome'); document.getElementById(this.closest('.message-form').id).remove()" },
+                { label: 'Start Playing', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+            ]
+        });
+    }, 3000);
+    
+    console.log('✅ Все системы работают! Наслаждайтесь игрой!');
 });
+
+// Стили для уведомлений о достижениях
+const achievementStyles = document.createElement('style');
+achievementStyles.textContent = `
+    .achievement-notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        border: 2px solid #ffd700;
+        border-radius: 15px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        z-index: 10000;
+        transform: translateX(400px);
+        transition: transform 0.5s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        max-width: 350px;
+    }
+    
+    .achievement-notification.show {
+        transform: translateX(0);
+    }
+    
+    .achievement-icon {
+        font-size: 2rem;
+        flex-shrink: 0;
+    }
+    
+    .achievement-content {
+        flex: 1;
+    }
+    
+    .achievement-title {
+        color: #ffd700;
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+    
+    .achievement-message {
+        color: white;
+        font-size: 0.9rem;
+    }
+`;
+document.head.appendChild(achievementStyles);
