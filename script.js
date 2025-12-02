@@ -1,4 +1,4 @@
-// script.js - Полностью рабочий сайт со всеми формами вместо всплывающих сообщений
+// script.js - Полностью рабочий сайт с сохранением в localStorage
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🎰 Lucky Spin Slots - Полностью рабочий сайт загружен!');
@@ -30,6 +30,125 @@ document.addEventListener('DOMContentLoaded', function() {
     let spinCount = 0;
     let currentLevel = 'Beginner';
     let playerExperience = 0;
+    let adClicks = [];
+    let adRevenue = 0;
+
+    // ДОБАВЬ ЭТО: Флаги для отслеживания полученных бонусов
+    let bonusesClaimed = {
+        welcomeBonus: false,
+        dailyBonus: false,
+        weeklyBonus: false,
+        emailBonus: false,
+        jackpotBonus: false
+    };
+
+    // ДОБАВЬ ЭТО: Время последнего бонуса
+    let lastBonusTime = {
+        welcome: null,
+        daily: null,
+        weekly: null,
+        email: null,
+        jackpot: null
+    };
+    
+    // ===== LOCALSTORAGE ФУНКЦИИ =====
+    
+    function saveGameState() {
+    const gameState = {
+        balance: balance,
+        betAmount: betAmount,
+        gamesPlayed: gamesPlayed,
+        wins: wins,
+        totalWon: totalWon,
+        spinCount: spinCount,
+        currentLevel: currentLevel,
+        playerExperience: playerExperience,
+        adClicks: adClicks,
+        adRevenue: adRevenue,
+        
+        // ДОБАВЬ ЭТИ СТРОКИ:
+        bonusesClaimed: bonusesClaimed,
+        lastBonusTime: lastBonusTime,
+        
+        lastSave: new Date().toISOString()
+    };
+    localStorage.setItem('luckySpinGameState', JSON.stringify(gameState));
+    console.log('💾 Состояние игры сохранено:', gameState);
+}
+    
+    function loadGameState() {
+    const savedState = localStorage.getItem('luckySpinGameState');
+    if (savedState) {
+        try {
+            const state = JSON.parse(savedState);
+            balance = state.balance || 1000;
+            betAmount = state.betAmount || 10;
+            gamesPlayed = state.gamesPlayed || 0;
+            wins = state.wins || 0;
+            totalWon = state.totalWon || 0;
+            spinCount = state.spinCount || 0;
+            currentLevel = state.currentLevel || 'Beginner';
+            playerExperience = state.playerExperience || 0;
+            adClicks = state.adClicks || [];
+            adRevenue = state.adRevenue || 0;
+            
+            // ДОБАВЬ ЭТИ СТРОКИ:
+            bonusesClaimed = state.bonusesClaimed || {
+                welcomeBonus: false,
+                dailyBonus: false,
+                weeklyBonus: false,
+                emailBonus: false,
+                jackpotBonus: false
+            };
+            lastBonusTime = state.lastBonusTime || {
+                welcome: null,
+                daily: null,
+                weekly: null,
+                email: null,
+                jackpot: null
+            };
+            
+            console.log('📂 Состояние игры загружено:', state);
+        } catch (e) {
+            console.error('❌ Ошибка загрузки состояния:', e);
+            resetGameState();
+        }
+    }
+}
+    
+    function resetGameState() {
+        balance = 1000;
+        betAmount = 10;
+        gamesPlayed = 0;
+        wins = 0;
+        totalWon = 0;
+        spinCount = 0;
+        currentLevel = 'Beginner';
+        playerExperience = 0;
+        adClicks = [];
+        adRevenue = 0;
+        
+        localStorage.removeItem('luckySpinGameState');
+        console.log('🔄 Состояние игры сброшено');
+    }
+    
+    function exportGameData() {
+        const gameState = {
+            balance: balance,
+            betAmount: betAmount,
+            gamesPlayed: gamesPlayed,
+            wins: wins,
+            winRate: gamesPlayed > 0 ? ((wins / gamesPlayed) * 100).toFixed(1) + '%' : '0%',
+            totalWon: totalWon,
+            spinCount: spinCount,
+            currentLevel: currentLevel,
+            playerExperience: playerExperience,
+            adClicksCount: adClicks.length,
+            adRevenue: adRevenue,
+            lastSave: new Date().toISOString()
+        };
+        return JSON.stringify(gameState, null, 2);
+    }
     
     // ===== ФУНКЦИИ ФОРМ =====
     
@@ -72,7 +191,6 @@ document.addEventListener('DOMContentLoaded', function() {
         messageFormsContainer.appendChild(form);
         setTimeout(() => form.classList.add('show'), 10);
         
-        // Автоматическое удаление через 5 секунд, если не требуется действие
         if (!options.actions && !options.inputs) {
             setTimeout(() => {
                 if (document.getElementById(formId)) {
@@ -103,6 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function updateBetDisplay() {
         betAmountElement.textContent = betAmount;
+        saveGameState(); // Сохраняем при изменении
     }
     
     function updateBalanceDisplay() {
@@ -123,6 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (levelBadge) levelBadge.style.background = 'linear-gradient(45deg, #6a11cb, #2575fc)';
         }
         if (levelBadge) levelBadge.textContent = currentLevel;
+        saveGameState(); // Сохраняем при изменении уровня
     }
     
     function addExperience(points) {
@@ -132,6 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (playerExperience === 100 || playerExperience === 500 || playerExperience === 1000) {
             showForm('success', '🎉 Level Up!', `You are now ${currentLevel}!`);
         }
+        saveGameState(); // Сохраняем опыт
     }
     
     function spinReel(reel, duration) {
@@ -169,6 +290,10 @@ document.addEventListener('DOMContentLoaded', function() {
         balance -= betAmount;
         gamesPlayed++;
         spinCount++;
+        
+        // СОХРАНЕНИЕ ПОСЛЕ ИЗМЕНЕНИЯ
+        saveGameState();
+        
         updateBalanceDisplay();
         
         addExperience(1);
@@ -211,6 +336,10 @@ document.addEventListener('DOMContentLoaded', function() {
             balance += winAmount;
             totalWon += winAmount;
             wins++;
+            
+            // СОХРАНЕНИЕ ПОСЛЕ ВЫИГРЫША
+            saveGameState();
+            
             updateBalanceDisplay();
             
             addExperience(10);
@@ -258,6 +387,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function deposit(amount) {
         balance += amount;
+        
+        // СОХРАНЕНИЕ ПОСЛЕ ДЕПОЗИТА
+        saveGameState();
+        
         updateBalanceDisplay();
         addExperience(5);
         
@@ -319,6 +452,23 @@ document.addEventListener('DOMContentLoaded', function() {
         if (interstitialAd) {
             interstitialAd.classList.add('active');
         }
+    }
+    
+    function trackAdClick(productKey, productName) {
+        const clickData = {
+            product: productName,
+            productKey: productKey,
+            timestamp: new Date().toISOString(),
+            revenue: 25
+        };
+        
+        adClicks.push(clickData);
+        adRevenue += 25;
+        
+        // СОХРАНЕНИЕ ДАННЫХ О РЕКЛАМЕ
+        saveGameState();
+        
+        return clickData;
     }
     
     // ===== UI ФУНКЦИИ =====
@@ -429,60 +579,74 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // ОБРАБОТЧИК ДЛЯ ФУТЕРНЫХ ССЫЛОК
+    document.querySelectorAll('.footer-links a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const pageId = this.getAttribute('data-page');
+            if (pageId) {
+                showPage(pageId);
+                
+                if (mobileNav.classList.contains('active')) {
+                    mobileNav.classList.remove('active');
+                    mobileMenuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            }
+        });
+    });
+    
     document.addEventListener('click', function(e) {
-        if (e.target.classList.contains('play-btn') || e.target.classList.contains('mini-play-btn')) {
-            const gameName = e.target.closest('.game-card, .game-mini-card')?.querySelector('h3, h6')?.textContent || 'Game';
-            showForm('info', `🎮 Loading ${gameName}`, 'The game is loading... Good luck!');
-            showPage('home');
-            addExperience(15);
-        }
+    if (e.target.classList.contains('claim-btn')) {
+        const bonusName = e.target.closest('.promotion-card')?.querySelector('h3, h4')?.textContent || 'Bonus';
         
-        if (e.target.classList.contains('claim-btn')) {
-            const bonusName = e.target.closest('.promotion-card')?.querySelector('h3, h4')?.textContent || 'Bonus';
-            const bonusAmount = bonusName.includes('Welcome') ? 1000 : 
-                               bonusName.includes('Free') ? 200 : 
-                               bonusName.includes('Cashback') ? 150 : 100;
+        // ПРОВЕРКА ДЛЯ WELCOME BONUS
+        if (bonusName.includes('Welcome')) {
+            if (bonusesClaimed.welcomeBonus) {
+                showForm('error', '❌ Already Claimed', 'Welcome bonus can only be claimed once per account!', {
+                    icon: '⚠️'
+                });
+                return;
+            }
             
+            const bonusAmount = 1000;
             balance += bonusAmount;
+            bonusesClaimed.welcomeBonus = true;
+            lastBonusTime.welcome = new Date().toISOString();
+            
             updateBalanceDisplay();
             addExperience(30);
             
-            showForm('success', '🎉 Bonus Claimed!', `${bonusName} claimed! $${bonusAmount} added to your balance!`);
-            showAchievement("Bonus Hunter!", `Claimed ${bonusName}`);
+            // СОХРАНЕНИЕ
+            saveGameState();
+            
+            showForm('success', '🎉 Welcome Bonus Claimed!', `Welcome bonus claimed! $${bonusAmount} added to your balance!`);
+            showAchievement("Welcome!", `Claimed Welcome Bonus`);
+            
+            // ОБНОВИ ВНЕШНИЙ ВИД КНОПКИ
+            e.target.textContent = 'Already Claimed';
+            e.target.disabled = true;
+            e.target.style.opacity = '0.7';
+            e.target.style.cursor = 'not-allowed';
+            
+            return;
         }
         
-        if (e.target.classList.contains('support-btn')) {
-            const action = e.target.textContent;
-            if (action.includes('Chat')) {
-                showForm('info', '💬 Live Chat', 'Connecting you to a support agent...', {
-                    progress: 75,
-                    actions: [
-                        { label: 'Continue', type: 'primary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
-                    ]
-                });
-            } else if (action.includes('Email')) {
-                showForm('info', '📧 Email Support', 'Email: support@luckyspinslots.com', {
-                    inputs: '<textarea placeholder="Type your message here..." rows="3"></textarea>',
-                    actions: [
-                        { label: 'Send Email', type: 'primary', onClick: "document.getElementById(this.closest('.message-form').id).remove(); alert('Email sent successfully!')" },
-                        { label: 'Cancel', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
-                    ]
-                });
-            } else if (action.includes('Call')) {
-                showForm('info', '📞 Call Support', 'Call us at: 1-800-LUCKY-SPIN', {
-                    actions: [
-                        { label: 'Dial Now', type: 'primary', onClick: "document.getElementById(this.closest('.message-form').id).remove(); alert('Calling support...')" },
-                        { label: 'Cancel', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
-                    ]
-                });
-            }
-        }
+        // ОБЫЧНЫЕ БОНУСЫ (если нужно)
+        const bonusAmount = bonusName.includes('Welcome') ? 1000 : 
+                           bonusName.includes('Free') ? 200 : 
+                           bonusName.includes('Cashback') ? 150 : 100;
         
-        if (e.target.classList.contains('deposit-btn')) {
-            const amount = parseInt(e.target.textContent.replace('+$', '')) || 100;
-            deposit(amount);
-        }
-    });
+        balance += bonusAmount;
+        updateBalanceDisplay();
+        addExperience(30);
+        
+        // СОХРАНЕНИЕ
+        saveGameState();
+        
+        showForm('success', '🎉 Bonus Claimed!', `${bonusName} claimed! $${bonusAmount} added to your balance!`);
+        showAchievement("Bonus Hunter!", `Claimed ${bonusName}`);
+    }
+});
     
     // Email subscription
     const emailForm = document.getElementById('emailSubscribeForm');
@@ -496,6 +660,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 const bonus = 50;
                 balance += bonus;
+                
+                // СОХРАНЕНИЕ ПОСЛЕ ПОДПИСКИ
+                saveGameState();
+                
                 updateBalanceDisplay();
                 emailForm.reset();
             }
@@ -522,12 +690,18 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         
         const productName = products[productKey] || 'Product';
+        const clickData = trackAdClick(productKey, productName);
+        
         showForm('success', '🎁 Ad Bonus!', `You earned a $25 bonus for checking ${productName}!`, {
             icon: '💰'
         });
+        
         balance += 25;
         updateBalanceDisplay();
         addExperience(10);
+        
+        // СОХРАНЕНИЕ ПОСЛЕ КЛИКА ПО РЕКЛАМЕ
+        saveGameState();
     };
     
     window.giveAdBonus = function(productKey) {
@@ -536,6 +710,7 @@ document.addEventListener('DOMContentLoaded', function() {
         showForm('success', '🎁 Bonus Added!', '+$25 bonus for clicking ad!', {
             icon: '💰'
         });
+        saveGameState();
     };
     
     window.closeInterstitial = function() {
@@ -546,19 +721,67 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     window.claimBonusForm = function(type) {
-        const bonuses = {
-            'welcome': 1000,
-            'daily': 100,
-            'weekly': 250
-        };
-        
-        const amount = bonuses[type] || 100;
-        balance += amount;
-        updateBalanceDisplay();
-        showForm('success', '🎉 Bonus Claimed!', `Claimed ${type} bonus! +$${amount} added!`, {
-            icon: '💰'
-        });
+    const bonuses = {
+        'welcome': 1000,
+        'daily': 100,
+        'weekly': 250
     };
+    
+    const amount = bonuses[type] || 100;
+    
+    // ПРОВЕРКА: Уже получали бонус?
+    if (type === 'welcome' && bonusesClaimed.welcomeBonus) {
+        showForm('error', '❌ Bonus Already Claimed', 'Welcome bonus can only be claimed once!', {
+            icon: '⚠️'
+        });
+        return;
+    }
+    
+    if (type === 'daily') {
+        const lastClaim = lastBonusTime.daily;
+        if (lastClaim) {
+            const hoursSinceLastClaim = (new Date() - new Date(lastClaim)) / (1000 * 60 * 60);
+            if (hoursSinceLastClaim < 24) {
+                const hoursLeft = Math.ceil(24 - hoursSinceLastClaim);
+                showForm('error', '⏰ Daily Bonus Not Ready', `Come back in ${hoursLeft} hour(s) to claim your daily bonus!`, {
+                    icon: '⏳'
+                });
+                return;
+            }
+        }
+    }
+    
+    if (type === 'weekly' && lastBonusTime.weekly) {
+        const daysSinceLastClaim = (new Date() - new Date(lastBonusTime.weekly)) / (1000 * 60 * 60 * 24);
+        if (daysSinceLastClaim < 7) {
+            const daysLeft = Math.ceil(7 - daysSinceLastClaim);
+            showForm('error', '📅 Weekly Bonus Not Ready', `Come back in ${daysLeft} day(s) to claim your weekly bonus!`, {
+                icon: '📆'
+            });
+            return;
+        }
+    }
+    
+    // ВЫДАЧА БОНУСА
+    balance += amount;
+    updateBalanceDisplay();
+    
+    // ОБНОВЛЕНИЕ ФЛАГОВ
+    if (type === 'welcome') {
+        bonusesClaimed.welcomeBonus = true;
+    }
+    lastBonusTime[type] = new Date().toISOString();
+    
+    // СОХРАНЕНИЕ
+    saveGameState();
+    
+    showForm('success', '🎉 Bonus Claimed!', `Claimed ${type} bonus! +$${amount} added!`, {
+        icon: '💰',
+        actions: [
+            { label: 'Great!', type: 'primary', onClick: `document.getElementById(this.closest('.message-form').id).remove()` }
+        ]
+    });
+};
     
     window.showJackpotInfoForm = function() {
         showForm('info', '💰 Progressive Jackpot', 'Jackpot starts at $2,500,000! Play now for a chance to win big!', {
@@ -663,17 +886,107 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
     
+    // НОВЫЕ ФУНКЦИИ ДЛЯ LOCALSTORAGE
+    
+    window.exportGameDataForm = function() {
+        const gameData = exportGameData();
+        showForm('info', '💾 Export Game Data', 'Your game data in JSON format:', {
+            inputs: `<textarea readonly rows="8" style="width:100%; font-family:monospace; background:#1a1a2e; color:#00ffb0; padding:10px; border-radius:5px;">${gameData}</textarea>`,
+            actions: [
+                { label: 'Copy to Clipboard', type: 'primary', onClick: "navigator.clipboard.writeText(document.querySelector('.message-form textarea').value); document.getElementById(this.closest('.message-form').id).remove(); showForm('success', 'Copied!', 'Game data copied to clipboard!')" },
+                { label: 'Close', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+            ]
+        });
+    };
+    
+    window.resetGameForm = function() {
+        showForm('warning', '⚠️ Reset Game', 'Are you sure you want to reset all game progress? This cannot be undone!', {
+            actions: [
+                { label: 'Yes, Reset', type: 'error', onClick: "resetGameState(); document.getElementById(this.closest('.message-form').id).remove(); location.reload()" },
+                { label: 'Cancel', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+            ]
+        });
+    };
+    
+    window.showStatsForm = function() {
+        const winRate = gamesPlayed > 0 ? ((wins / gamesPlayed) * 100).toFixed(1) : 0;
+        showForm('info', '📊 Game Statistics', `
+            <div style="text-align:left; line-height:2;">
+                <div><strong>Balance:</strong> $${balance.toLocaleString()}</div>
+                <div><strong>Games Played:</strong> ${gamesPlayed}</div>
+                <div><strong>Wins:</strong> ${wins}</div>
+                <div><strong>Win Rate:</strong> ${winRate}%</div>
+                <div><strong>Total Won:</strong> $${totalWon.toLocaleString()}</div>
+                <div><strong>Level:</strong> ${currentLevel}</div>
+                <div><strong>Experience:</strong> ${playerExperience} XP</div>
+                <div><strong>Ad Clicks:</strong> ${adClicks.length}</div>
+                <div><strong>Ad Revenue:</strong> $${adRevenue.toFixed(2)}</div>
+                <div><strong>Last Save:</strong> ${new Date().toLocaleString()}</div>
+            </div>
+        `, {
+            actions: [
+                { label: 'Export Data', type: 'primary', onClick: "exportGameDataForm()" },
+                { label: 'Close', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+            ]
+        });
+    };
+    
+    // Добавляем кнопку статистики в профиль
+    window.addStatsButton = function() {
+        const profileModal = document.getElementById('profileModal');
+        if (profileModal) {
+            const modalBody = profileModal.querySelector('.modal-body');
+            if (modalBody) {
+                const statsButton = document.createElement('button');
+                statsButton.className = 'btn btn-info w-100 mt-3';
+                statsButton.innerHTML = '<i class="fas fa-chart-bar me-2"></i>Show Statistics';
+                statsButton.onclick = function() {
+                    const modal = bootstrap.Modal.getInstance(profileModal);
+                    if (modal) modal.hide();
+                    setTimeout(() => window.showStatsForm(), 300);
+                };
+                modalBody.appendChild(statsButton);
+            }
+        }
+    };
+    
     // ===== ИНИЦИАЛИЗАЦИЯ =====
+    loadGameState(); // Загружаем сохранённое состояние
     updateBetDisplay();
     updateBalanceDisplay();
     updateStats();
     updatePlayerLevel();
     showPage('home');
     
+    // Автоматическое сохранение каждые 30 секунд
+    setInterval(saveGameState, 30000);
+    
     setInterval(updateLiveStats, 30000);
     
+    // Показываем статистику при загрузке (только в консоли)
+    console.log('📊 Текущая статистика:', {
+        balance: balance,
+        gamesPlayed: gamesPlayed,
+        wins: wins,
+        totalWon: totalWon,
+        level: currentLevel,
+        experience: playerExperience,
+        adClicks: adClicks.length,
+        adRevenue: adRevenue
+    });
+    
     // Show welcome form after 3 seconds
-    setTimeout(() => {
+    // В welcome форме после загрузки:
+setTimeout(() => {
+    // ПРОВЕРЬ: Уже получали welcome бонус?
+    if (bonusesClaimed.welcomeBonus) {
+        showForm('info', '👋 Welcome Back!', 'Your welcome bonus was already claimed. Enjoy the game!', {
+            icon: '🎰',
+            actions: [
+                { label: 'Start Playing', type: 'primary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+            ]
+        });
+    } else {
         showForm('info', '🎉 Welcome to Lucky Spin Slots!', 'Enjoy free casino games. Claim your welcome bonus to get started!', {
             icon: '🎰',
             actions: [
@@ -681,10 +994,80 @@ document.addEventListener('DOMContentLoaded', function() {
                 { label: 'Start Playing', type: 'secondary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
             ]
         });
-    }, 3000);
+    }
+}, 3000);
+    
+    // Добавляем кнопку статистики
+    setTimeout(addStatsButton, 1000);
     
     console.log('✅ Все системы работают! Наслаждайтесь игрой!');
+    console.log('💾 LocalStorage сохранение включено. Данные сохраняются автоматически.');
 });
+
+// Автоматическое сохранение при закрытии вкладки
+window.addEventListener('beforeunload', function() {
+    if (typeof saveGameState === 'function') {
+        saveGameState();
+        console.log('💾 Игра сохранена перед закрытием вкладки');
+    }
+});
+
+function checkAvailableBonuses() {
+    const available = [];
+    
+    if (!bonusesClaimed.welcomeBonus) {
+        available.push({ type: 'welcome', name: 'Welcome Bonus', amount: 1000 });
+    }
+    
+    if (lastBonusTime.daily) {
+        const hoursSince = (new Date() - new Date(lastBonusTime.daily)) / (1000 * 60 * 60);
+        if (hoursSince >= 24) {
+            available.push({ type: 'daily', name: 'Daily Bonus', amount: 100 });
+        }
+    } else {
+        available.push({ type: 'daily', name: 'Daily Bonus', amount: 100 });
+    }
+    
+    if (lastBonusTime.weekly) {
+        const daysSince = (new Date() - new Date(lastBonusTime.weekly)) / (1000 * 60 * 60 * 24);
+        if (daysSince >= 7) {
+            available.push({ type: 'weekly', name: 'Weekly Bonus', amount: 250 });
+        }
+    } else {
+        available.push({ type: 'weekly', name: 'Weekly Bonus', amount: 250 });
+    }
+    
+    return available;
+}
+
+window.showAvailableBonuses = function() {
+    const available = checkAvailableBonuses();
+    
+    if (available.length === 0) {
+        showForm('info', '🎁 No Bonuses Available', 'Check back later for new bonuses!', {
+            icon: '⏳',
+            actions: [
+                { label: 'OK', type: 'primary', onClick: "document.getElementById(this.closest('.message-form').id).remove()" }
+            ]
+        });
+        return;
+    }
+    
+    let message = '<div style="text-align:left; line-height:2;">';
+    available.forEach(bonus => {
+        message += `<div><strong>${bonus.name}:</strong> $${bonus.amount}</div>`;
+    });
+    message += '</div>';
+    
+    showForm('info', '🎁 Available Bonuses', message, {
+        icon: '💰',
+        actions: available.map(bonus => ({
+            label: `Claim ${bonus.name}`,
+            type: 'primary',
+            onClick: `claimBonusForm('${bonus.type}'); document.getElementById(this.closest('.message-form').id).remove()`
+        }))
+    });
+};
 
 // Стили для уведомлений о достижениях
 const achievementStyles = document.createElement('style');
